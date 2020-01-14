@@ -1,9 +1,42 @@
 let env = document.querySelector('#env');
 
+// Pre-defined environment colors
+const COLORS = {
+    white: '#FFFFFF',
+    black: '#000000',
+    lightgreen: '#756E2B',
+    darkgreen: '#716C22',
+    skyblue: '#76D6FF'
+};
+
+// Environment description
+let desc = {
+    preset: 'forest',
+    skyType: 'gradient',
+    skyColor: COLORS.skyblue,
+    horizonColor: COLORS.white,
+    shadow: true,
+    shadowSize: 10,
+    fog: 0.8,
+    playArea: 1,
+    ground: 'hills',
+    groundColor: COLORS.lightgreen,
+    groundColor2: COLORS.darkgreen,
+    groundTexture: 'checkerboard',
+    groundYScale: 50,
+    dressing: 'trees',
+    dressingAmount: 0,
+    dressingColor: COLORS.lightgreen,
+    dressingScale: 5
+};
+
+// Fetch data
+fetch('/api/brainwaves')
+    .then((response) => response.json())
+    .then((data) => console.log(JSON.stringify(data)));
+
 // Linear interpolation given start, end, and step
-let lerp = (a, b, u) => {
-    return (1 - u) * a + u * b;
-}
+let lerp = (a, b, u) => (1 - u) * a + u * b;
 
 // Transitions between two numbers or colors (type)
 let fade = (type, object, property, start, end, duration) => {
@@ -26,69 +59,34 @@ let fade = (type, object, property, start, end, duration) => {
         updateEnv();
         u += step_u;
     }, interval);
-}
+};
 
 // Color helper functions
-let componentToHex = (c) => {
-    var hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
-}
+let rgbToHex = (r, g, b) => '#' + compToHex(r) + compToHex(g) + compToHex(b);
 
-let rgbToHex = (r, g, b) => {
-    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-}
+let compToHex = (c) => {
+    var hex = c.toString(16);
+    return hex.length == 1 ? '0' + hex : hex;
+};
 
 let hexToRgb = (hex) => {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-      r: parseInt(result[1], 16),
-      g: parseInt(result[2], 16),
-      b: parseInt(result[3], 16)
-    } : null;
-  }
-
-// Pre-defined environment colors
-const COLORS = {
-    white: '#FFFFFF',
-    black: '#000000',
-    lightgreen: '#756E2B',
-    darkgreen: '#716C22',
-    skyblue: '#76D6FF'
-}
-
-let desc = {
-    preset: 'forest',
-    skyType: 'gradient',
-    skyColor: COLORS.black,
-    horizonColor: COLORS.white,
-    shadow: true,
-    shadowSize: 10,
-    fog: 1,
-    playArea: 1,
-    ground: 'hills',
-    groundColor: COLORS.white,
-    groundColor2: COLORS.white,
-    groundTexture: 'checkerboard',
-    groundYScale: 0,
-    dressing: 'trees',
-    dressingAmount: 0,
-    dressingColor: COLORS.white,
-    dressingScale: 5
-}
+    return result
+        ? {
+              r: parseInt(result[1], 16),
+              g: parseInt(result[2], 16),
+              b: parseInt(result[3], 16)
+          }
+        : null;
+};
 
 let updateEnv = () => {
     env.setAttribute('environment', desc);
-}
+};
 
 let startEnv = (duration) => {
-    fade('color', desc, 'groundColor', desc.groundColor, COLORS.lightgreen, duration);
-    fade('color', desc, 'groundColor2', desc.groundColor2, COLORS.darkgreen, duration);
-    fade('color', desc, 'dressingColor', desc.dressingColor, COLORS.lightgreen, duration);
-    fade('color', desc, 'skyColor', desc.skyColor, COLORS.skyblue, duration);
-    fade('number', desc, 'fog', desc.fog, 0.8, duration);
-    fade('number', desc, 'dressingAmount', desc.dressingAmount, 500, duration);
-    fade('number', desc, 'groundYScale', desc.groundYScale, 10, duration);
-}
+    fade('color', desc, 'groundColor');
+};
 
 updateEnv();
-startEnv(1000);
+//startEnv(1000);
