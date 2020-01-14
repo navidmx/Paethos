@@ -1,0 +1,24 @@
+{
+    "name": "paethos",
+    "version": "1.0.0",
+    "description": "A BCI virtual reality experience that utilizes EEG sensors to turn brainwaves into an interactive art piece.",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/navidmx/Paethos.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/navidmx/Paethos/issues"
+    },
+    "homepage": "https://github.com/navidmx/Paethos#readme",
+    "dependencies": {
+        "@neurosity/pipes": "^3.2.3",
+        "express": "^4.17.1"
+    }
+}
