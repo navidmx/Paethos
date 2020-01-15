@@ -13,8 +13,11 @@ var data = {
     delta: 0,
     gamma: 0,
     theta: 0,
-    focus: 0
+    focus: 0,
+    focusLastFiveSeconds: 0
 };
+
+var lastFocus = new Date();
 
 /* UDP DATA FROM GANGLION */
 
@@ -59,6 +62,9 @@ ganglionServerBandpower.on('message', function(message, remote) {
 ganglionServerFocus.on('message', function(message, remote) {
     message = String(message).replace(']', '');
     data.focus = JSON.parse(message).data;
+    if (data.focus) {
+        lastFocus = new Date();
+    }
 });
 
 ganglionServerBandpower.bind(bandpowerPort, ganglionHost);
@@ -76,6 +82,12 @@ app.get('/api/test', (req, res) => {
 });
 
 app.get('/api/brainwaves', (req, res) => {
+    var now = new Date();
+    if (now - lastFocus < 5000) {
+        data.focusLastFiveSeconds = 1;
+    } else {
+        data.focusLastFiveSeconds = 0;
+    }
     res.json(data);
 });
 
