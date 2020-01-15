@@ -1,0 +1,75 @@
+{
+  "_from": "ganglion-ble",
+  "_id": "ganglion-ble@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-jQtLMQcu3Blm1skZxEkrdgHB8Pf+d7H6LiboT4ufLDHsljI4myH9UXOPhrjJy6/10XFRzQrg3oFHGsVa04d9QQ==",
+  "_location": "/ganglion-ble",
+  "_phantomChildren": {
+    "symbol-observable": "1.0.1"
+  },
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "ganglion-ble",
+    "name": "ganglion-ble",
+    "escapedName": "ganglion-ble",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/ganglion-ble/-/ganglion-ble-1.0.0.tgz",
+  "_shasum": "7ba489687fbb72ac6aa9d24760cc2ba4df54d773",
+  "_spec": "ganglion-ble",
+  "_where": "/Users/gabriel/Desktop/Projects/Paethos",
+  "author": {
+    "name": "Alex Castillo",
+    "email": "alex@castillo.io"
+  },
+  "bugs": {
+    "url": "https://github.com/alexcastillo/ganglion-ble/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "openbci-utilities": "^0.3.2",
+    "rxjs": "^5.5.2"
+  },
+  "deprecated": false,
+  "description": "WebBluetooth client for the Ganglion EEG board by OpenBCI",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "webpack": "^3.7.1",
+    "webpack-dev-server": "^2.9.1"
+  },
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/alexcastillo/ganglion-ble#readme",
+  "keywords": [
+    "openbci",
+    "ganglion",
+    "ble",
+    "web",
+    "bluetooth",
+    "eeg"
+  ],
+  "license": "MIT",
+  "lock": false,
+  "main": "dist/ganglion-ble.umd.js",
+  "name": "ganglion-ble",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexcastillo/ganglion-ble.git"
+  },
+  "scripts": {
+    "build": "webpack",
+    "prepublish": "npm run build",
+    "start": "webpack-dev-server"
+  },
+  "version": "1.0.0"
+}

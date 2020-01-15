@@ -19,6 +19,8 @@
     "homepage": "https://github.com/navidmx/Paethos#readme",
     "dependencies": {
         "@neurosity/pipes": "^3.2.3",
-        "express": "^4.17.1"
+        "@openbci/utilities": "^1.0.0",
+        "express": "^4.17.1",
+        "ganglion-ble": "^1.0.0"
     }
 }
