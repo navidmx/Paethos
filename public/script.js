@@ -1,76 +1,28 @@
-let env = document.querySelector('#env');
+/* -- Constants -- */
 
-// Pre-defined environment colors
 const COLORS = {
     white: '#FFFFFF',
     black: '#000000',
     lightgreen: '#756E2B',
+    lightred: '#FA8F5A',
     darkgreen: '#716C22',
+    darkred: '#730A07',
     skyblue: '#76D6FF'
 };
 
-// Environment description
-let desc = {
-    preset: 'forest',
-    skyType: 'gradient',
-    skyColor: COLORS.skyblue,
-    horizonColor: COLORS.white,
-    shadow: true,
-    shadowSize: 10,
-    fog: 0.8,
-    playArea: 1,
-    ground: 'hills',
-    groundColor: COLORS.lightgreen,
-    groundColor2: COLORS.darkgreen,
-    groundTexture: 'checkerboard',
-    groundYScale: 50,
-    dressing: 'trees',
-    dressingAmount: 0,
-    dressingColor: COLORS.lightgreen,
-    dressingScale: 5
-};
+/* -------------------------- Helper Functions ------------------------------ */
 
-// Fetch data
-fetch('/api/brainwaves')
-    .then((response) => response.json())
-    .then((data) => console.log(JSON.stringify(data)));
+const lerp = (a, b, u) => (1 - u) * a + u * b;
 
-// Linear interpolation given start, end, and step
-let lerp = (a, b, u) => (1 - u) * a + u * b;
+const rgbToHex = (r, g, b) => '#' + compToHex(r) + compToHex(g) + compToHex(b);
 
-// Transitions between two numbers or colors (type)
-let fade = (type, object, property, start, end, duration) => {
-    let interval = 10;
-    let steps = duration / interval;
-    let step_u = 1.0 / steps;
-    let u = 0.0;
-    let currInterval = setInterval(() => {
-        if (u >= 1.0) clearInterval(currInterval);
-        if (type == 'color') {
-            let startHex = hexToRgb(start);
-            let endHex = hexToRgb(end);
-            let r = Math.round(lerp(startHex.r, endHex.r, u));
-            let g = Math.round(lerp(startHex.g, endHex.g, u));
-            let b = Math.round(lerp(startHex.b, endHex.b, u));
-            object[property] = rgbToHex(r, g, b);
-        } else if (type == 'number') {
-            object[property] = lerp(start, end, u);
-        }
-        updateEnv();
-        u += step_u;
-    }, interval);
-};
-
-// Color helper functions
-let rgbToHex = (r, g, b) => '#' + compToHex(r) + compToHex(g) + compToHex(b);
-
-let compToHex = (c) => {
-    var hex = c.toString(16);
+const compToHex = c => {
+    let hex = c.toString(16);
     return hex.length == 1 ? '0' + hex : hex;
 };
 
-let hexToRgb = (hex) => {
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+const hexToRgb = hex => {
+    let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result
         ? {
               r: parseInt(result[1], 16),
@@ -80,13 +32,76 @@ let hexToRgb = (hex) => {
         : null;
 };
 
-let updateEnv = () => {
-    env.setAttribute('environment', desc);
+// Set initial environment
+
+let env = document.querySelector('#env');
+env.setAttribute('environment', {
+    preset: 'forest',
+    skyType: 'gradient',
+    skyColor: COLORS.skyblue,
+    horizonColor: COLORS.white,
+    shadow: true,
+    shadowSize: 10,
+    fog: 1,
+    playArea: 1,
+    ground: 'hills',
+    groundColor: COLORS.white,
+    groundColor2: COLORS.white,
+    groundTexture: 'checkerboard',
+    groundYScale: 20,
+    dressing: 'trees',
+    dressingAmount: 50,
+    dressingColor: COLORS.lightgreen,
+    dressingScale: 5
+});
+
+// Fetch data from API
+/*
+fetch('../api/brainwaves')
+    .then((response) => response.json())
+    .then((data) => console.log(JSON.stringify(data)));
+*/
+
+// Transitions between two numbers or colors (type)
+let fade = (id, object, property, end, duration, color = false) => {
+    let el = document.querySelector(id);
+    // If start is default (undefined), just get the current property
+    let start = el.getAttribute(object)[property];
+    let interval = 10,
+        step = 1.0 / (duration / interval),
+        u = 0.0;
+    let startHex, endHex;
+    if (color) {
+        startHex = hexToRgb(start);
+        endHex = hexToRgb(end);
+    }
+    let currInterval = setInterval(() => {
+        if (u >= 1.0) clearInterval(currInterval);
+        if (color) {
+            let r = Math.round(lerp(startHex.r, endHex.r, u));
+            let g = Math.round(lerp(startHex.g, endHex.g, u));
+            let b = Math.round(lerp(startHex.b, endHex.b, u));
+            el.setAttribute(object, property, rgbToHex(r, g, b));
+        }
+        else el.setAttribute(object, property, lerp(start, end, u));
+        u += step;
+    }, interval);
 };
 
-let startEnv = (duration) => {
-    fade('color', desc, 'groundColor');
-};
+// Start animation sequences with a given duration
+let animate = (scene, dur) => {
+    switch (scene) {
+        case 'intro':
+            fade('#env', 'environment', 'fog', 1, 0.8, dur);
+            fade('#env', 'environment', 'groundColor', COLORS.lightgreen, dur, true);
+            fade('#env', 'environment', 'groundColor2', COLORS.darkgreen, dur, true);
+            fade('#leftHand', 'line', 'opacity', 0, 1, dur);
+            break;
+        case 'creepy':
+            fade('#env', 'environment', 'skyColor', COLORS.darkred, dur, true);
+            fade('#env', 'environment', 'horizonColor', COLORS.lightred, dur, true);
+            break;
+    }
+}
 
-updateEnv();
-//startEnv(1000);
+animate('intro', 500);
