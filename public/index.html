@@ -2,25 +2,31 @@
     <head>
         <meta charset="utf-8">
         <title>Paethos</title>
-        <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
-        <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+        <script src="lib/aframe.min.js"></script>
+        <script src="lib/aframe-environment-component.min.js"></script>
+        <script src="lib/aframe-ui-widgets.min.js"></script>
         <script src="script.js" defer></script>
     </head>
 
     <body>
-        <a-scene>
+        <a-scene id="scene">
+
+            <a-camera>
+                <a-cursor></a-cursor>
+            </a-camera>
 
             <!-- Controllers -->
             <a-entity id="leftHand" hand-controls="left"></a-entity>
-            <a-entity
-                id="rightHand"
+            <a-entity id="rightHand" hand-controls="right"></a-entity>
+                <!-- id="rightHand"
                 hand-controls="right"
                 controller-cursor
                 laser-controls="hand: right"
-                line="color: red; opacity: 0.9"></a-entity>
+                line="color: red; opacity: 0.9"></a-entity> -->
 
             <!-- Environment (https://github.com/supermedium/aframe-environment-component) -->
             <a-entity id="env"></a-entity>
+            <a-entity id="startButton" position="0 1 -1" ui-button></a-entity>
 
         </a-scene>
     </body>
