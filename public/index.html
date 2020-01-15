@@ -5,6 +5,7 @@
         <script src="lib/aframe.min.js"></script>
         <script src="lib/aframe-environment-component.min.js"></script>
         <script src="lib/aframe-ui-widgets.min.js"></script>
+        <script src="lib/aframe-gui.min.js"></script>
         <script src="script.js" defer></script>
     </head>
 
@@ -18,7 +19,7 @@
             <!-- Controllers -->
             <a-entity id="leftHand" hand-controls="left"></a-entity>
             <a-entity id="rightHand" hand-controls="right"></a-entity>
-                <!-- id="rightHand"
+            <!-- id="rightHand"
                 hand-controls="right"
                 controller-cursor
                 laser-controls="hand: right"
@@ -27,7 +28,19 @@
             <!-- Environment (https://github.com/supermedium/aframe-environment-component) -->
             <a-entity id="env"></a-entity>
             <a-entity id="startButton" position="0 1 -1" ui-button></a-entity>
-
+            <a-entity id="title"></a-entity>
+            <a-entity id="subtitle"></a-entity>
+            <a-gui-flex-container
+                id="gui"
+                justify-content="center"
+                align-items="normal"
+                component-padding="0.1"
+                opacity="0.7"
+                width="1.5"
+                height="1"
+                position="0 2 4">
+                ... gui items here...
+            </a-gui-flex-container>
         </a-scene>
     </body>
 </html>

@@ -47,6 +47,7 @@ const hexToRgb = hex => {
 
 let env = document.querySelector('#env');
 let scene = document.querySelector('#scene');
+let gui = document.querySelector('#gui');
 
 env.setAttribute('environment', {
     preset: 'forest',
@@ -81,19 +82,24 @@ function getWaves() {
 // getWaves();
 
 // Transitions between two numbers or colors (type)
+
+const INTERVAL = 10; // Time between fades, e.g. framerate
+
 let fade = (id, object, property, end, duration, color = false) => {
     let el = document.querySelector(id);
     let start = el.getAttribute(object)[property];
-    let interval = 10,
-        step = 1.0 / (duration / interval),
-        u = 0.0;
+    let step = 1 / (duration / INTERVAL),
+        u = 0;
     let startHex, endHex;
     if (color) {
         startHex = hexToRgb(start);
         endHex = hexToRgb(end);
     }
     let currInterval = setInterval(() => {
-        if (u >= 1.0) clearInterval(currInterval);
+        if (u >= 1) {
+            console.log("Fade complete");
+            clearInterval(currInterval);
+        }
         if (color) {
             let r = Math.round(lerp(startHex.r, endHex.r, u));
             let g = Math.round(lerp(startHex.g, endHex.g, u));
@@ -102,7 +108,7 @@ let fade = (id, object, property, end, duration, color = false) => {
         }
         else el.setAttribute(object, property, lerp(start, end, u));
         u += step;
-    }, interval);
+    }, INTERVAL);
 };
 
 // Creates entity based on object of parameters
@@ -116,7 +122,10 @@ let placeEntity = (attributes) => {
 function placeRandomTrees(count, space, radius, dur){
     let currCount = 0;
     let treeLoop = setInterval(() => {
-        if (currCount >= count) clearInterval(treeLoop);
+        if (currCount >= count) {
+            console.log("Trees complete.");
+            clearInterval(treeLoop);
+        }
     
         let xScale = random(3, 5);
             yScale = random(2, 4);
@@ -126,7 +135,7 @@ function placeRandomTrees(count, space, radius, dur){
             yPos = random(1.5, 2.3);
             zPos = random(-radius, radius);
 
-        let dist = Math.sqrt(xPos * xPos + yPos * yPos);
+        let dist = Math.sqrt(xPos * xPos + zPos * zPos);
         if (dist > space) {
             placeEntity({
                 'class': 'tree',
@@ -143,6 +152,9 @@ function placeRandomTrees(count, space, radius, dur){
     }, dur / count);
 }
 
+let title = document.querySelector('#title');
+let subtitle = document.querySelector('#subtitle');
+
 // Start animation sequences with a given duration
 let animate = (scene, dur) => {
     switch (scene) {
@@ -152,42 +164,59 @@ let animate = (scene, dur) => {
                 start.addEventListener('pressed', () => {
                     animate('fadeIn', 8000);
                     start.remove();
-                    document.querySelector('#openingTitle').remove();
-                    document.querySelector('#openingSubtitle').remove();
+                    document.querySelector('#title').setAttribute('text', {
+                        'value': 'Initializing...'
+                    })
+                    document.querySelector('#subtitle').setAttribute('text', {
+                        'value': 'Calibrating PAETHOS to your brain waves...'
+                    })
                 });
             }, 1000);
-            placeEntity({
-                'id': 'openingTitle',
-                'position': '0 2.5 -3',
-                'text': {
-                    'align': 'center',
-                    'font': 'exo2bold',
-                    'value': 'Welcome to PAETHOS',
-                    'color': 'black',
-                    'opacity': 1,
-                    'width': 8
+            setAttributes(title, {
+                position: '0 2.5 -3',
+                text: {
+                    align: 'center',
+                    font: 'exo2bold',
+                    value: 'Welcome to PAETHOS',
+                    color: 'black',
+                    opacity: 1,
+                    width: 8
                 }
             });
-            setTimeout(() => {
-                placeEntity({
-                    'id': 'openingSubtitle',
-                    'position': '0 2 -3',
-                    'text': {
-                        'align': 'center',
-                        'font': 'exo2semibold',
-                        'value': 'To begin, use your hand to click the button!',
-                        'color': 'black',
-                        'opacity': 0.7,
-                        'width': 4
-                    }
-                });
-            }, 2000);
+            setAttributes(subtitle, {
+                position: '0 2 -3',
+                text: {
+                    align: 'center',
+                    font: 'exo2semibold',
+                    value: 'To begin, use your hand to click the button!',
+                    color: 'black',
+                    opacity: 0.7,
+                    width: 4
+                }
+            });
             break;
         case 'fadeIn':
             fade('#env', 'environment', 'fog', 0.7, dur);
             fade('#env', 'environment', 'groundColor', COLORS.lightgreen, dur, true);
             fade('#env', 'environment', 'groundColor2', COLORS.darkgreen, dur, true);
-            placeRandomTrees(80, 10, 60, dur);
+            placeRandomTrees(40, 20, 70, dur);
+            setTimeout(() => {
+                setAttributes(title, {
+                    position: '0 2.3 -2',
+                    text: {
+                        value: 'Calibrated!',
+                        width: 2
+                    }
+                });
+                setAttributes(subtitle, {
+                    position: '0 2.2 -2',
+                    text: {
+                        value: 'View your brain activity below...',
+                        width: 1.5
+                    }
+                })
+                gui.setAttribute('position', '0 1.6 -2');
+            }, dur);
             break;
         case 'creepy':
             fade('#env', 'environment', 'skyColor', COLORS.darkred, dur, true);
