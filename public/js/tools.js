@@ -50,6 +50,8 @@ const hexToRgb = (hex) => {
 
 let env = document.querySelector('#env');
 let scene = document.querySelector('#scene');
+let title = document.querySelector('#title');
+let subtitle = document.querySelector('#subtitle');
 
 env.setAttribute('environment', {
     preset: 'forest',
@@ -71,14 +73,13 @@ env.setAttribute('environment', {
     dressingScale: 5
 });
 
-let focus = false;
+let focused = $('#focused');
 let waves = ['delta', 'theta', 'alpha', 'beta', 'gamma'];
 let waveEls = [];
 for (let i = 0; i < waves.length; i++) {
     waveEls[i] = document.querySelector(`#${waves[i]} > a-ring`);
     document.querySelector(`#${waves[i]} > #loader_ring_count`).remove();
 }
-let focused = document.querySelector('#focused');
 
 let ratio, currWave;
 function getWaves() {
@@ -89,7 +90,7 @@ function getWaves() {
                 for (let i = 0; i < waveEls.length; i++) {
                     currWave = data[waves[i]];
                     if (currWave < 0.1) currWave = 0.1;
-                    if (currWave > 100) currWave = 100;
+                    else if (currWave > 100) currWave = 100;
                     ratio = (Math.log10(currWave) + 1) * -120;
                     if (ratio > -1) ratio = -2; // Min label
                     if (data.focus) {
@@ -104,6 +105,8 @@ function getWaves() {
             });
     }, 100);
 }
+
+let enableGUI = interface => $(`#${interface}`).attr(`visible`, true);
 
 // Transitions between two numbers or colors (type)
 
