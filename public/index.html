@@ -7,6 +7,7 @@
         <script src="lib/aframe-ui-widgets.min.js"></script>
         <script src="lib/aframe-gui.min.js"></script>
         <script src="script.js" defer></script>
+        <script src="transitions.js"></script>
     </head>
 
     <body>
@@ -25,23 +26,11 @@
                 line="color: red; opacity: 0.9"></a-entity> -->
 
             <audio loop autoplay>
-                <source src="assets/paethos.mp3" type="audio/mpeg">
+                <source src="assets/paethos.mp3" type="audio/mpeg" />
                 Your browser does not support the audio tag.
             </audio>
 
             <!-- Environment (https://github.com/supermedium/aframe-environment-component) -->
-<<<<<<< HEAD
-            <a-entity id="env">
-                <a-animation
-                    attribute="fog.density"
-                    from="0"
-                    to="1"
-                    dur="3000"
-                    mixin="transition"
-                ></a-animation>
-            </a-entity>
-            <a-entity id="startButton" position="0 1 -1" ui-button></a-entity>
-=======
             <a-entity id="env"></a-entity>
             <a-entity id="startButton" position="0 1 -0.8" ui-button></a-entity>
             <a-entity id="title"></a-entity>
@@ -55,42 +44,48 @@
                 width="6"
                 height="2"
                 position="0 1.6 -8"
-                visible="false">
+                visible="false"
+            >
                 <a-gui-circle-loader
                     height="1"
                     width="1"
                     id="delta"
-                    count=0
+                    count="0"
                     active-color="#8598c2"
-                    background-color="#333333"></a-gui-circle-loader>
+                    background-color="#333333"
+                ></a-gui-circle-loader>
                 <a-gui-circle-loader
                     height="1"
                     width="1"
                     id="theta"
-                    count=0
+                    count="0"
                     active-color="#ae91b8"
-                    background-color="#333333"></a-gui-circle-loader>
+                    background-color="#333333"
+                ></a-gui-circle-loader>
                 <a-gui-circle-loader
                     height="1"
                     width="1"
                     id="alpha"
-                    count=0
+                    count="0"
                     active-color="#82a799"
-                    background-color="#333333"></a-gui-circle-loader>
+                    background-color="#333333"
+                ></a-gui-circle-loader>
                 <a-gui-circle-loader
                     height="1"
                     width="1"
                     id="beta"
-                    count=0
+                    count="0"
                     active-color="#e7ce6d"
-                    background-color="#333333"></a-gui-circle-loader>
+                    background-color="#333333"
+                ></a-gui-circle-loader>
                 <a-gui-circle-loader
                     height="1"
                     width="1"
                     id="gamma"
-                    count=0
+                    count="0"
                     active-color="#e9867f"
-                    background-color="#333333"></a-gui-circle-loader>
+                    background-color="#333333"
+                ></a-gui-circle-loader>
             </a-gui-flex-container>
             <a-gui-flex-container
                 id="focusedGUI"
@@ -101,7 +96,8 @@
                 height="0.5"
                 padding="1"
                 position="0 0.35 -8"
-                visible="false">
+                visible="false"
+            >
                 <a-gui-label
                     id="focused"
                     width="4"
@@ -110,9 +106,9 @@
                     opacity="0.7"
                     font-family="Arial"
                     background-color="#333333"
-                    font-color="lightgreen"></a-gui-label>
+                    font-color="lightgreen"
+                ></a-gui-label>
             </a-gui-flex-container>
->>>>>>> 5dc15722523893d33ee70a8880750b5b663551f9
         </a-scene>
     </body>
 </html>
