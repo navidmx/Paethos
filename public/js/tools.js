@@ -53,26 +53,6 @@ let scene = document.querySelector('#scene');
 let title = document.querySelector('#title');
 let subtitle = document.querySelector('#subtitle');
 
-env.setAttribute('environment', {
-    preset: 'forest',
-    skyType: 'gradient',
-    skyColor: COLORS.skyblue,
-    horizonColor: COLORS.lightblue,
-    shadow: true,
-    shadowSize: 10,
-    fog: 0.9,
-    playArea: 1.4,
-    ground: 'hills',
-    groundColor: COLORS.white,
-    groundColor2: COLORS.white,
-    groundTexture: 'checkerboard',
-    groundYScale: 80,
-    dressing: 'trees',
-    dressingAmount: 0,
-    dressingColor: COLORS.lightgreen,
-    dressingScale: 5
-});
-
 let focused = $('#focused');
 let waves = ['delta', 'theta', 'alpha', 'beta', 'gamma'];
 let waveEls = [];

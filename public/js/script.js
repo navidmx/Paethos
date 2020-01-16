@@ -3,6 +3,7 @@ let animate = (scene, dur) => {
     switch (scene) {
         case 'intro':
             let start = document.querySelector('#startButton');
+            setScene(scenes.initial);
             setTimeout(() => {
                 start.addEventListener('pressed', () => {
                     animate('fadeIn', 8000);
@@ -39,23 +40,10 @@ let animate = (scene, dur) => {
             });
             break;
         case 'fadeIn':
+            setScene(scenes.initial); // ONLY FOR DEBUG, ALREADY IN INTRO!
             fade('#env', 'environment', 'fog', 0.7, dur);
-            fade(
-                '#env',
-                'environment',
-                'groundColor',
-                COLORS.lightgreen,
-                dur,
-                true
-            );
-            fade(
-                '#env',
-                'environment',
-                'groundColor2',
-                COLORS.darkgreen,
-                dur,
-                true
-            );
+            fade('#env', 'environment', 'groundColor', COLORS.lightgreen, dur, true);
+            fade('#env', 'environment', 'groundColor2', COLORS.darkgreen, dur, true);
             placeRandomTrees(40, 20, 70, dur);
             setTimeout(() => {
                 //getWaves();
