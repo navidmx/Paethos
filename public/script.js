@@ -147,7 +147,7 @@ function placeRandomTrees(count, space, radius, dur) {
         if (currCount >= count) {
             clearInterval(treeLoop);
         }
-    
+
         let xScale = random(3, 5);
         yScale = random(2, 4);
         zScale = xScale;
@@ -192,11 +192,11 @@ let animate = (scene, dur) => {
                     animate('fadeIn', 8000);
                     start.remove();
                     document.querySelector('#title').setAttribute('text', {
-                        'value': 'Initializing...'
-                    })
+                        value: 'Initializing...'
+                    });
                     document.querySelector('#subtitle').setAttribute('text', {
-                        'value': 'Calibrating PAETHOS to your brain waves...'
-                    })
+                        value: 'Calibrating PAETHOS to your brain waves...'
+                    });
                 });
             }, 1000);
             setAttributes(title, {
@@ -224,11 +224,25 @@ let animate = (scene, dur) => {
             break;
         case 'fadeIn':
             fade('#env', 'environment', 'fog', 0.7, dur);
-            fade('#env', 'environment', 'groundColor', COLORS.lightgreen, dur, true);
-            fade('#env', 'environment', 'groundColor2', COLORS.darkgreen, dur, true);
+            fade(
+                '#env',
+                'environment',
+                'groundColor',
+                COLORS.lightgreen,
+                dur,
+                true
+            );
+            fade(
+                '#env',
+                'environment',
+                'groundColor2',
+                COLORS.darkgreen,
+                dur,
+                true
+            );
             placeRandomTrees(40, 20, 70, dur);
             setTimeout(() => {
-                getWaves();
+                //getWaves();
                 setAttributes(title, {
                     position: '0 2.3 -2',
                     text: {
@@ -242,7 +256,7 @@ let animate = (scene, dur) => {
                         value: 'View your brain activity below...',
                         width: 1.5
                     }
-                })
+                });
                 gui.setAttribute('visible', 'true');
                 focusedGUI.setAttribute('visible', 'true');
             }, dur);
@@ -300,7 +314,6 @@ function firstTransition() {
     setInterval(() => {
         killTrees();
         changeEnvironment('position', '0 0 0', 0);
-        
     }, duration + 10);
     setInterval(() => {
         fade('#env', 'environment', 'skyColor', '#88c', duration, true);
