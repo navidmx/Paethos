@@ -1,8 +1,3 @@
-let title = document.querySelector('#title');
-let subtitle = document.querySelector('#subtitle');
-let gui = document.querySelector('#gui');
-let focusedGUI = document.querySelector('#focusedGUI');
-
 // Start animation sequences with a given duration
 let animate = (scene, dur) => {
     switch (scene) {
@@ -79,7 +74,6 @@ let animate = (scene, dur) => {
                     }
                 });
                 gui.setAttribute('visible', 'true');
-                focusedGUI.setAttribute('visible', 'true');
             }, dur);
             break;
     }

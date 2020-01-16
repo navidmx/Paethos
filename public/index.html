@@ -5,9 +5,10 @@
         <link href="css/styles.css" rel="stylesheet">
         <script src="lib/jquery-3.4.1.min.js"></script>
         <script src="lib/aframe.min.js"></script>
-        <script src="lib/aframe-environment-component.min.js"></script>
-        <script src="lib/aframe-ui-widgets.min.js"></script>
         <script src="lib/aframe-gui.min.js"></script>
+        <script src="lib/aframe-ui-widgets.min.js"></script>
+        <script src="lib/aframe-environment-component.min.js"></script>
+        <script src="lib/aframe-particle-system-component.min.js"></script>
         <script src="js/tools.js" defer></script>
         <script src="js/scenes.js" defer></script>
         <script src="js/transitions.js" defer></script>
@@ -52,8 +53,7 @@
                 opacity="0"
                 width="6"
                 height="2"
-                position="0 1.6 -8"
-                visible="false">
+                position="0 1.6 -8">
                 <a-gui-circle-loader
                     height="1"
                     width="1"
@@ -61,6 +61,7 @@
                     count="0"
                     active-color="#8598c2"
                     margin="0 0.2 0 0.2"
+                    visible="false"
                     background-color="#333333"></a-gui-circle-loader>
                 <a-gui-circle-loader
                     height="1"
@@ -69,6 +70,7 @@
                     count="0"
                     active-color="#ae91b8"
                     margin="0 0.2 0 0.2"
+                    visible="false"
                     background-color="#333333"></a-gui-circle-loader>
                 <a-gui-circle-loader
                     height="1"
@@ -77,6 +79,7 @@
                     count="0"
                     active-color="#82a799"
                     margin="0 0.2 0 0.2"
+                    visible="false"
                     background-color="#333333"></a-gui-circle-loader>
                 <a-gui-circle-loader
                     height="1"
@@ -85,6 +88,7 @@
                     count="0"
                     active-color="#e7ce6d"
                     margin="0 0.2 0 0.2"
+                    visible="false"
                     background-color="#333333"></a-gui-circle-loader>
                 <a-gui-circle-loader
                     height="1"
@@ -93,6 +97,7 @@
                     count="0"
                     active-color="#e9867f"
                     margin="0 0.2 0 0.2"
+                    visible="false"
                     background-color="#333333"></a-gui-circle-loader>
             </a-gui-flex-container>
             <a-gui-flex-container
@@ -103,8 +108,7 @@
                 width="6"
                 height="0.5"
                 padding="1"
-                position="0 0.35 -8"
-                visible="false">
+                position="0 0.35 -8">
                 <a-gui-label
                     id="focused"
                     width="4"
@@ -114,7 +118,8 @@
                     font-family="Arial"
                     background-color="#333333"
                     font-color="lightgreen"
-                ></a-gui-label>
+                    visible="false">
+                </a-gui-label>
             </a-gui-flex-container>
         </a-scene>
     </body>
