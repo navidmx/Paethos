@@ -12,6 +12,10 @@
     <body>
         <a-scene id="scene">
 
+            <a-camera>
+                <a-cursor></a-cursor>
+            </a-camera>
+
             <!-- Controllers -->
             <a-entity id="leftHand" hand-controls="left"></a-entity>
             <a-entity id="rightHand" hand-controls="right"></a-entity>
@@ -20,6 +24,11 @@
                 controller-cursor
                 laser-controls="hand: right"
                 line="color: red; opacity: 0.9"></a-entity> -->
+
+            <audio loop autoplay>
+                <source src="assets/paethos.mp3" type="audio/mpeg">
+                Your browser does not support the audio tag.
+            </audio>
 
             <!-- Environment (https://github.com/supermedium/aframe-environment-component) -->
             <a-entity id="env"></a-entity>
@@ -73,7 +82,7 @@
                     background-color="#333333"></a-gui-circle-loader>
             </a-gui-flex-container>
             <a-gui-flex-container
-                id="focused"
+                id="focusedGUI"
                 justify-content="center"
                 align-items="normal"
                 opacity="0.7"
@@ -83,9 +92,10 @@
                 position="0 0.35 -8"
                 visible="false">
                 <a-gui-label
+                    id="focused"
                     width="4"
                     height="0.5"
-                    value="Focused"
+                    value="Not Focused"
                     opacity="0.7"
                     font-family="Arial"
                     background-color="#333333"

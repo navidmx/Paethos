@@ -68,23 +68,34 @@ env.setAttribute('environment', {
     dressingScale: 5
 });
 
+let focus = false;
 let waves = ['delta', 'theta', 'alpha', 'beta', 'gamma'];
 let waveEls = [];
 for (let i = 0; i < waves.length; i++) {
     waveEls[i] = document.querySelector(`#${waves[i]} > a-ring`);
     document.querySelector(`#${waves[i]} > #loader_ring_count`).remove();
 }
+let focused = document.querySelector('#focused');
 
-let ratio, scaled;
+let ratio, currWave;
 function getWaves() {
     setInterval(()=> {
         fetch('../api/brainwaves')
             .then((response) => response.json())
             .then((data) => {
-                console.log(data.alpha);
                 for (let i = 0; i < waveEls.length; i++) {
-                    scaled = Math.log(data[waves[i]]);
-                    ratio = scaled < 0 ? 0 : scaled * 360;
+                    currWave = data[waves[i]];
+                    if (currWave < 0.1) currWave = 0.1;
+                    if (currWave > 100) currWave = 100;
+                    ratio = (Math.log10(currWave) + 1) * -120;
+                    if (ratio > -1) ratio = -2; // Min label
+                    if (data.focus) {
+                        focused.setAttribute('value', 'Focused');
+                        focused.setAttribute('font-color', 'lightgreen');
+                    } else {
+                        focused.setAttribute('value', 'Not Focused');
+                        focused.setAttribute('font-color', 'lightred');
+                    }
                     waveEls[i].setAttribute('theta-length', ratio);
                 }
             });
@@ -163,7 +174,7 @@ function placeRandomTrees(count, space, radius, dur){
 let title = document.querySelector('#title');
 let subtitle = document.querySelector('#subtitle');
 let gui = document.querySelector('#gui');
-let focused = document.querySelector('#focused');
+let focusedGUI = document.querySelector('#focusedGUI');
 
 // Start animation sequences with a given duration
 let animate = (scene, dur) => {
@@ -227,7 +238,7 @@ let animate = (scene, dur) => {
                     }
                 })
                 gui.setAttribute('visible', 'true');
-                focused.setAttribute('visible', 'true');
+                focusedGUI.setAttribute('visible', 'true');
             }, dur);
             break;
     }
