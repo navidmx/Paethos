@@ -182,6 +182,6 @@ function changeEnvironment(property, result, dur) {
         property: property,
         to: result,
         dur: dur,
-        easing: 'linear'
+        easing: 'easeInCubic'
     });
 }
