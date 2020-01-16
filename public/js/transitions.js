@@ -8,10 +8,10 @@ function fadeInBlack(dur) {
 }
 
 function blackTransition() {
-    fadeOutBlack(4000);
+    fadeOutBlack(2000);
     setTimeout(() => {
-        fadeInBlack(4000);
-    }, 8000);
+        fadeInBlack(2000);
+    }, 4000);
 }
 
 function takeFlight(duration) {
@@ -83,4 +83,62 @@ function firstTransition() {
     setTimeout(() => {
         blackTransition();
     }, 5000);
+    setTimeout(() => {
+        sceneTwo();
+    }, 8000);
+}
+
+function sceneTwo() {
+    document
+        .getElementsByClassName('environmentGround')[0]
+        .setAttribute('animation', {
+            property: 'position',
+            to: '0 0 0',
+            dur: 0,
+            easing: 'easeInQuad'
+        });
+    document
+        .getElementsByClassName('environmentGround')[0]
+        .setAttribute('animation__2', {
+            property: 'scale',
+            to: '1 1 1',
+            dur: 0,
+            easing: 'linear'
+        });
+    $('#env').each(function() {
+        var attributes = this.attributes;
+        var i = attributes.length;
+        while (i--) {
+            this.removeAttributeNode(attributes[i]);
+        }
+    });
+    env.setAttribute('environment', {
+        preset: 'starry'
+    }); /*,
+        active: true,
+        seed: 1,
+        skyType: 'atmosphere',
+        skyColor: '#88c',
+        horizonColor: '#ddd',
+        lighting: 'distant',
+        lightPosition: { x: 0, y: -0.01, z: -0.46 },
+        fog: 0.7,
+        flatShading: false,
+        playArea: 1,
+        ground: 'hills',
+        groundYScale: 3,
+        groundTexture: 'none',
+        groundColor: '#553e35',
+        groundColor2: '#694439',
+        dressing: 'none',
+        dressingAmount: 100,
+        dressingColor: '#795449',
+        dressingScale: 5,
+        dressingVariance: { x: 1, y: 1, z: 1 },
+        dressingUniformScale: true,
+        grid: '1x1',
+        dressingOnPlayArea: 0,
+        gridColor: '#39d2f2',
+        shadow: false
+    });*/
 }
