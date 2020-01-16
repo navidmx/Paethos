@@ -96,7 +96,7 @@ function takeFlight(duration) {
 }
 
 //document.getElementsByClassName("tree").setAttribute(object, property, rgbToHex(r, g, b))
-
+/*
 function changeEnvironment(property, result, dur) {
     env.setAttribute('animation', {
         property: property,
@@ -105,7 +105,7 @@ function changeEnvironment(property, result, dur) {
         easing: 'linear'
     });
 }
-
+/*
 function lowerWorld(duration) {
     let trees = document.getElementsByClassName('tree');
 
@@ -126,7 +126,7 @@ function killTrees() {
         tree.remove();
     }
 }
-
+/*
 function firstTransition() {
     let duration = 1000;
     takeFlight(duration);
@@ -150,9 +150,9 @@ function firstTransition() {
             duration,
             true
         );*/
-    //env.setAttribute('environment', { opacity: 0 });
-    //fade('#env', 'material', 'opacity', 0, 0, true);
-    /*env.setAttribute('environment', {
+//env.setAttribute('environment', { opacity: 0 });
+//fade('#env', 'material', 'opacity', 0, 0, true);
+/*env.setAttribute('environment', {
             active: true,
             seed: 1,
             skyType: 'atmosphere',
@@ -179,14 +179,14 @@ function firstTransition() {
             gridColor: '#39d2f2',
             shadow: false
         });*/
-    //changeEnvironment('opacity', 0, 1000);
-    /*env.setAttribute('animation', {
+//changeEnvironment('opacity', 0, 1000);
+/*env.setAttribute('animation', {
             property: 'position',
             to: '0 0 0',
             dur: 0,
             easing: 'linear'
         });*/
-    /*
+/*
         env.setAttribute('animation', {
             property: 'opacity',
             to: 0,
@@ -200,10 +200,10 @@ function firstTransition() {
             easing: 'linear'
         });*/
 
-    //scene.setAttribute('position', '0 0 0');
-    //fade('#env', 'environment', 'skyColor', '#88c', 500, true);
-    //fade('#env', 'environment', 'horizonColor', '#ddd', 500, true);
-    /*env.setAttribute('environment', {
+//scene.setAttribute('position', '0 0 0');
+//fade('#env', 'environment', 'skyColor', '#88c', 500, true);
+//fade('#env', 'environment', 'horizonColor', '#ddd', 500, true);
+/*env.setAttribute('environment', {
             active: true,
             seed: 1,
             skyType: 'atmosphere',
@@ -230,4 +230,3 @@ function firstTransition() {
             gridColor: '#39d2f2',
             shadow: false
         });*/
-}

@@ -176,3 +176,12 @@ function placeRandomTrees(count, space, radius, dur) {
         currCount++;
     }, dur / count);
 }
+
+function changeEnvironment(property, result, dur) {
+    env.setAttribute('animation', {
+        property: property,
+        to: result,
+        dur: dur,
+        easing: 'linear'
+    });
+}
