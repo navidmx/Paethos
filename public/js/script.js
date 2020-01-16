@@ -69,13 +69,7 @@ let animate = (scene, dur) => {
 
 animate('fadeIn', 10);
 
-function takeFlight(duration) {
-    //skyColor: COLORS.skyblue,
-    fade('#env', 'environment', 'skyColor', COLORS.black, duration, true);
-    fade('#env', 'environment', 'horizonColor', COLORS.black, duration, true);
-    //horizonColor: COLORS.lightblue,
-    //fade('#env', 'environment', 'fog', 1, 4000);
-}
+
 
 //document.getElementsByClassName("tree").setAttribute(object, property, rgbToHex(r, g, b))
 /*
