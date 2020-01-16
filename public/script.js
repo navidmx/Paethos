@@ -71,32 +71,58 @@ env.setAttribute('environment', {
     dressingScale: 5
 });
 
+let focus = false;
+let waves = ['delta', 'theta', 'alpha', 'beta', 'gamma'];
+let waveEls = [];
+for (let i = 0; i < waves.length; i++) {
+    waveEls[i] = document.querySelector(`#${waves[i]} > a-ring`);
+    document.querySelector(`#${waves[i]} > #loader_ring_count`).remove();
+}
+let focused = document.querySelector('#focused');
+
+let ratio, currWave;
 function getWaves() {
     setInterval(() => {
         fetch('../api/brainwaves')
             .then((response) => response.json())
             .then((data) => {
-                data = JSON.stringify(data);
+                for (let i = 0; i < waveEls.length; i++) {
+                    currWave = data[waves[i]];
+                    if (currWave < 0.1) currWave = 0.1;
+                    if (currWave > 100) currWave = 100;
+                    ratio = (Math.log10(currWave) + 1) * -120;
+                    if (ratio > -1) ratio = -2; // Min label
+                    if (data.focus) {
+                        focused.setAttribute('value', 'Focused');
+                        focused.setAttribute('font-color', 'lightgreen');
+                    } else {
+                        focused.setAttribute('value', 'Not Focused');
+                        focused.setAttribute('font-color', 'lightred');
+                    }
+                    waveEls[i].setAttribute('theta-length', ratio);
+                }
             });
     }, 100);
 }
 
-// getWaves();
-
 // Transitions between two numbers or colors (type)
+
+const INTERVAL = 10; // Time between fades, e.g. framerate
+
 let fade = (id, object, property, end, duration, color = false) => {
     let el = document.querySelector(id);
     let start = el.getAttribute(object)[property];
-    let interval = 10,
-        step = 1.0 / (duration / interval),
-        u = 0.0;
+    let step = 1 / (duration / INTERVAL),
+        u = 0;
     let startHex, endHex;
     if (color) {
         startHex = hexToRgb(start);
         endHex = hexToRgb(end);
     }
     let currInterval = setInterval(() => {
-        if (u >= 1.0) clearInterval(currInterval);
+        if (u >= 1) {
+            clearInterval(currInterval);
+        }
         if (color) {
             let r = Math.round(lerp(startHex.r, endHex.r, u));
             let g = Math.round(lerp(startHex.g, endHex.g, u));
@@ -104,7 +130,7 @@ let fade = (id, object, property, end, duration, color = false) => {
             el.setAttribute(object, property, rgbToHex(r, g, b));
         } else el.setAttribute(object, property, lerp(start, end, u));
         u += step;
-    }, interval);
+    }, INTERVAL);
 };
 
 // Creates entity based on object of parameters
@@ -118,8 +144,10 @@ let placeEntity = (attributes) => {
 function placeRandomTrees(count, space, radius, dur) {
     let currCount = 0;
     let treeLoop = setInterval(() => {
-        if (currCount >= count) clearInterval(treeLoop);
-
+        if (currCount >= count) {
+            clearInterval(treeLoop);
+        }
+    
         let xScale = random(3, 5);
         yScale = random(2, 4);
         zScale = xScale;
@@ -128,7 +156,7 @@ function placeRandomTrees(count, space, radius, dur) {
         yPos = random(1.5, 2.3);
         zPos = random(-radius, radius);
 
-        let dist = Math.sqrt(xPos * xPos + yPos * yPos);
+        let dist = Math.sqrt(xPos * xPos + zPos * zPos);
         if (dist > space) {
             placeEntity({
                 class: 'tree',
@@ -149,6 +177,11 @@ function placeRandomTrees(count, space, radius, dur) {
     }, dur / count);
 }
 
+let title = document.querySelector('#title');
+let subtitle = document.querySelector('#subtitle');
+let gui = document.querySelector('#gui');
+let focusedGUI = document.querySelector('#focusedGUI');
+
 // Start animation sequences with a given duration
 let animate = (scene, dur) => {
     switch (scene) {
@@ -158,12 +191,15 @@ let animate = (scene, dur) => {
                 start.addEventListener('pressed', () => {
                     animate('fadeIn', 8000);
                     start.remove();
-                    document.querySelector('#openingTitle').remove();
-                    document.querySelector('#openingSubtitle').remove();
+                    document.querySelector('#title').setAttribute('text', {
+                        'value': 'Initializing...'
+                    })
+                    document.querySelector('#subtitle').setAttribute('text', {
+                        'value': 'Calibrating PAETHOS to your brain waves...'
+                    })
                 });
             }, 1000);
-            placeEntity({
-                id: 'openingTitle',
+            setAttributes(title, {
                 position: '0 2.5 -3',
                 text: {
                     align: 'center',
@@ -174,51 +210,42 @@ let animate = (scene, dur) => {
                     width: 8
                 }
             });
-            setTimeout(() => {
-                placeEntity({
-                    id: 'openingSubtitle',
-                    position: '0 2 -3',
-                    text: {
-                        align: 'center',
-                        font: 'exo2semibold',
-                        value: 'To begin, use your hand to click the button!',
-                        color: 'black',
-                        opacity: 0.7,
-                        width: 4
-                    }
-                });
-            }, 2000);
+            setAttributes(subtitle, {
+                position: '0 2 -3',
+                text: {
+                    align: 'center',
+                    font: 'exo2semibold',
+                    value: 'To begin, use your hand to click the button!',
+                    color: 'black',
+                    opacity: 0.7,
+                    width: 4
+                }
+            });
             break;
         case 'fadeIn':
             fade('#env', 'environment', 'fog', 0.7, dur);
-            fade(
-                '#env',
-                'environment',
-                'groundColor',
-                COLORS.lightgreen,
-                dur,
-                true
-            );
-            fade(
-                '#env',
-                'environment',
-                'groundColor2',
-                COLORS.darkgreen,
-                dur,
-                true
-            );
-            placeRandomTrees(80, 10, 60, dur);
-            break;
-        case 'creepy':
-            fade('#env', 'environment', 'skyColor', COLORS.darkred, dur, true);
-            fade(
-                '#env',
-                'environment',
-                'horizonColor',
-                COLORS.lightred,
-                dur,
-                true
-            );
+            fade('#env', 'environment', 'groundColor', COLORS.lightgreen, dur, true);
+            fade('#env', 'environment', 'groundColor2', COLORS.darkgreen, dur, true);
+            placeRandomTrees(40, 20, 70, dur);
+            setTimeout(() => {
+                getWaves();
+                setAttributes(title, {
+                    position: '0 2.3 -2',
+                    text: {
+                        value: 'Calibrated!',
+                        width: 2
+                    }
+                });
+                setAttributes(subtitle, {
+                    position: '0 2.2 -2',
+                    text: {
+                        value: 'View your brain activity below...',
+                        width: 1.5
+                    }
+                })
+                gui.setAttribute('visible', 'true');
+                focusedGUI.setAttribute('visible', 'true');
+            }, dur);
             break;
     }
 };
