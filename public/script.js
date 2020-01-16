@@ -47,7 +47,6 @@ const hexToRgb = hex => {
 
 let env = document.querySelector('#env');
 let scene = document.querySelector('#scene');
-let gui = document.querySelector('#gui');
 
 env.setAttribute('environment', {
     preset: 'forest',
@@ -69,17 +68,28 @@ env.setAttribute('environment', {
     dressingScale: 5
 });
 
+let waves = ['delta', 'theta', 'alpha', 'beta', 'gamma'];
+let waveEls = [];
+for (let i = 0; i < waves.length; i++) {
+    waveEls[i] = document.querySelector(`#${waves[i]} > a-ring`);
+    document.querySelector(`#${waves[i]} > #loader_ring_count`).remove();
+}
+
+let ratio, scaled;
 function getWaves() {
     setInterval(()=> {
         fetch('../api/brainwaves')
             .then((response) => response.json())
             .then((data) => {
-                data = JSON.stringify(data);
+                console.log(data.alpha);
+                for (let i = 0; i < waveEls.length; i++) {
+                    scaled = Math.log(data[waves[i]]);
+                    ratio = scaled < 0 ? 0 : scaled * 360;
+                    waveEls[i].setAttribute('theta-length', ratio);
+                }
             });
     }, 100);
 }
-
-// getWaves();
 
 // Transitions between two numbers or colors (type)
 
@@ -97,7 +107,6 @@ let fade = (id, object, property, end, duration, color = false) => {
     }
     let currInterval = setInterval(() => {
         if (u >= 1) {
-            console.log("Fade complete");
             clearInterval(currInterval);
         }
         if (color) {
@@ -123,7 +132,6 @@ function placeRandomTrees(count, space, radius, dur){
     let currCount = 0;
     let treeLoop = setInterval(() => {
         if (currCount >= count) {
-            console.log("Trees complete.");
             clearInterval(treeLoop);
         }
     
@@ -154,6 +162,8 @@ function placeRandomTrees(count, space, radius, dur){
 
 let title = document.querySelector('#title');
 let subtitle = document.querySelector('#subtitle');
+let gui = document.querySelector('#gui');
+let focused = document.querySelector('#focused');
 
 // Start animation sequences with a given duration
 let animate = (scene, dur) => {
@@ -201,6 +211,7 @@ let animate = (scene, dur) => {
             fade('#env', 'environment', 'groundColor2', COLORS.darkgreen, dur, true);
             placeRandomTrees(40, 20, 70, dur);
             setTimeout(() => {
+                getWaves();
                 setAttributes(title, {
                     position: '0 2.3 -2',
                     text: {
@@ -215,12 +226,9 @@ let animate = (scene, dur) => {
                         width: 1.5
                     }
                 })
-                gui.setAttribute('position', '0 1.6 -2');
+                gui.setAttribute('visible', 'true');
+                focused.setAttribute('visible', 'true');
             }, dur);
-            break;
-        case 'creepy':
-            fade('#env', 'environment', 'skyColor', COLORS.darkred, dur, true);
-            fade('#env', 'environment', 'horizonColor', COLORS.lightred, dur, true);
             break;
     }
 }
