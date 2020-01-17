@@ -151,7 +151,7 @@ function transitionReset() {
     soundFadeIn(sound.forest, true);
     setTimeout(() => {
         sceneFinal();
-        placeRandomTrees(100, 50, 70, 0);
+        placeRandomTrees(50, 50, 70, 0);
         env.setAttribute('scale', '1 1 1');
         document
             .getElementsByClassName('environmentGround')[0]
