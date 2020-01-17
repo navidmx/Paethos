@@ -1,10 +1,25 @@
+let blackout = document.querySelector("#blackout");
+
 function fadeOutBlack(dur) {
-    overlay = document.querySelector('#overlay');
-    $('#overlay').fadeIn(dur);
+    blackout.setAttribute('visible', true);
+    blackout.setAttribute('animation', {
+        property: 'material.opacity',
+        to: 1,
+        dur: dur,
+        easing: 'easeInQuad'
+    }, dur);
 }
 
 function fadeInBlack(dur) {
-    $('#overlay').fadeOut(dur);
+    blackout.setAttribute('animation', {
+        property: 'material.opacity',
+        to: 0,
+        dur: dur,
+        easing: 'easeInQuad'
+    }, dur);
+    setTimeout(() => {
+        blackout.setAttribute('visible', false);
+    }, dur);
 }
 
 function blackTransition() {
@@ -74,7 +89,7 @@ function killTrees() {
     }
 }
 
-function firstTransition() {
+function transitionDelta() {
     lowerWorld(10000);
     setTimeout(() => {
         killTrees;
@@ -82,8 +97,7 @@ function firstTransition() {
     }, 2000);
     setTimeout(() => {
         blackTransition();
+        showHeading(text.delta.heading, text.delta.subheading, COLORS.delta);
     }, 5000);
-    setTimeout(() => {
-        sceneTwo();
-    }, 8000);
+    setTimeout(sceneDelta, 8000);
 }

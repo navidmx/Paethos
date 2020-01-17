@@ -35,13 +35,17 @@ let animate = (scene, dur) => {
             );
             placeRandomTrees(40, 20, 70, dur);
             setTimeout(() => {
-                setTitle('Calibrated.');
+                setTitle(text.calibrate.title2);
                 setSubtitle('');
                 setTimeout(() => {
                     setAttributes(title, { position: '0 3.5 -6' });
                     setAttributes(subtitle, { position: '0 2.8 -6' });
+                    setTitleColor(COLORS.white);
                     setTitle(text.initial.title);
                     setSubtitle(text.initial.subtitle);
+                    setTimeout(() => {
+                        createButton("deltaButton", transitionDelta);
+                    }, 5000); // Match with Laura's audio
                 }, dur);
             }, dur);
             break;

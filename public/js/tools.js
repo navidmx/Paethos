@@ -26,7 +26,7 @@ const rgbToHex = (r, g, b) => '#' + compToHex(r) + compToHex(g) + compToHex(b);
 
 const coinFlip = () => Math.random() > 0.5;
 
-const compToHex = (c) => {
+const compToHex = c => {
     if (c < 0) c = 0;
     let hex = Math.floor(c).toString(16);
     return hex.length == 1 ? '0' + hex : hex;
@@ -36,7 +36,7 @@ const setAttributes = (el, attrs) => {
     for (let key in attrs) el.setAttribute(key, attrs[key]);
 };
 
-const hexToRgb = (hex) => {
+const hexToRgb = hex => {
     let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result
         ? {
@@ -47,14 +47,25 @@ const hexToRgb = (hex) => {
         : null;
 };
 
+const createButton = (id, action) => {
+    $(`<a-entity id=${id} ui-button position="0 0.75 -0.8">`).appendTo("#env");
+    setTimeout(() => {
+        let button = document.querySelector('#' + id);
+        button.addEventListener('pressed', () => {
+            action();
+            button.remove();
+        });
+    }, 1000);
+}
+
 // Set initial environment
 
 let env = document.querySelector('#env');
 let scene = document.querySelector('#scene');
-
-let focused = $('#focused');
-let waves = ['delta', 'theta', 'alpha', 'beta', 'gamma'];
+let focused = document.querySelector('#focused');
 let waveEls = [];
+
+let waves = ['delta', 'theta', 'alpha', 'beta', 'gamma'];
 for (let i = 0; i < waves.length; i++) {
     waveEls[i] = document.querySelector(`#${waves[i]} > a-ring`);
     document.querySelector(`#${waves[i]} > #loader_ring_count`).remove();
@@ -108,10 +119,48 @@ let setSubheading = text => subheading.setAttribute('text', { value: text } );
 let setTitle = text => title.setAttribute('text', { value: text } );
 let setSubtitle = text => subtitle.setAttribute('text', { value: text } );
 
-let setHeadingColor = color => heading.setAttribute('text', { 'font-color': color } );
-let setSubheadingColor = color => subheading.setAttribute('text', { 'font-color': color } );
-let setTitleColor = color => title.setAttribute('text', { 'font-color': color } );
-let setSubtitleColor = color => subtitle.setAttribute('text', { 'font-color': color } );
+let setHeadingColor = color => heading.setAttribute('text', { color: color } );
+let setSubheadingColor = color => subheading.setAttribute('text', { color: color } );
+let setTitleColor = color => title.setAttribute('text', { color: color } );
+let setSubtitleColor = color => subtitle.setAttribute('text', { color: color } );
+
+let showHeading = (headingText, subheadingText, color) => {
+    setHeading(headingText);
+    setSubheading(subheadingText);
+    setSubheadingColor(COLORS[color]);
+    heading.setAttribute('visible', 'true');
+    subheading.setAttribute('visible', 'true');
+    heading.setAttribute('animation', {
+        property: 'text.opacity',
+        to: 1,
+        dur: 1000,
+        easing: 'easeInQuad'
+    });
+    subheading.setAttribute('animation', {
+        property: 'text.opacity',
+        to: 1,
+        dur: 1000,
+        easing: 'easeInQuad'
+    });
+    setTimeout(() => {
+        heading.setAttribute('animation', {
+            property: 'text.opacity',
+            to: 0,
+            dur: 1000,
+            easing: 'easeInQuad'
+        });
+        subheading.setAttribute('animation', {
+            property: 'text.opacity',
+            to: 0,
+            dur: 1000,
+            easing: 'easeInQuad'
+        });
+        setTimeout(() => {
+            heading.setAttribute('visible', 'false');
+            subheading.setAttribute('visible', 'false');
+        }, 2000);
+    }, 4000);
+}
 
 // Transitions between two numbers or colors (type)
 
