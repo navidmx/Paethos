@@ -1,7 +1,7 @@
-let setEnvironment = scene => {
+let setEnvironment = (scene) => {
     killTrees();
     env.setAttribute('environment', scene);
-}
+};
 
 let sceneDelta = () => {
     document
@@ -21,7 +21,7 @@ let sceneDelta = () => {
             easing: 'linear'
         });
     setEnvironment(scenes.delta);
-}
+};
 
 let scenes = {
     initial: {
@@ -113,5 +113,67 @@ let scenes = {
         grid: '1x1',
         gridColor: '#478d54',
         shadow: false
+    },
+    alpha: {
+        active: true,
+        seed: 14,
+        skyType: 'atmosphere',
+        skyColor: COLORS.skyblue,
+        horizonColor: '#78D8FF',
+        lighting: 'point',
+        lightPosition: {
+            x: 0,
+            y: 5,
+            z: 3
+        },
+        fog: 0.8,
+        flatShading: false,
+        playArea: 1,
+        ground: 'flat',
+        groundYScale: 1,
+        groundTexture: 'none',
+        groundColor: '#2e455f',
+        groundColor2: '#694439',
+        dressing: 'none',
+        dressingAmount: 30,
+        dressingColor: '#657067',
+        dressingScale: 20,
+        dressingVariance: {
+            x: 20,
+            y: 20,
+            z: 20
+        },
+        dressingUniformScale: true,
+        dressingOnPlayArea: 0,
+        grid: '0x0',
+        gridColor: '#478d54',
+        shadow: false
+    },
+    beta: {
+        active: true,
+        seed: 3,
+        skyType: 'gradient',
+        skyColor: '#00f0c5',
+        horizonColor: '#ddd',
+        lighting: 'point',
+        lightPosition: { x: -0.11, y: 0.16, z: 0.33 },
+        fog: 0.67,
+        flatShading: true,
+        playArea: 1,
+        ground: 'hills',
+        groundYScale: 10,
+        groundTexture: 'none',
+        groundColor: '#e7ce4f',
+        groundColor2: '#ffdc69',
+        dressing: 'arches',
+        dressingAmount: 18,
+        dressingColor: '#795449',
+        dressingScale: 26,
+        dressingVariance: { x: 20, y: 40, z: 20 },
+        dressingUniformScale: true,
+        dressingOnPlayArea: 0.04,
+        grid: 'none',
+        gridColor: '#ccc',
+        shadow: false
     }
-}
+};
