@@ -3,38 +3,17 @@ let animate = (scene, dur) => {
     let start = document.querySelector('#startButton');
     switch (scene) {
         case 'intro':
-            let start = document.querySelector('#startButton');
             setEnvironment(scenes.initial);
             setTimeout(() => {
                 start.addEventListener('pressed', () => {
                     animate('fadeIn', 5000);
                     start.remove();
-                    setTitle('Initializing...');
-                    setSubtitle('Calibrating PAETHOS to your brain waves...');
+                    setTitle(text.calibrate.title);
+                    setSubtitle(text.calibrate.subtitle);
                 });
             }, 1000);
-            setAttributes(title, {
-                position: '0 2.5 -3',
-                text: {
-                    align: 'center',
-                    font: 'exo2bold',
-                    value: 'Welcome to PAETHOS',
-                    color: 'black',
-                    opacity: 1,
-                    width: 8
-                }
-            });
-            setAttributes(subtitle, {
-                position: '0 2 -3',
-                text: {
-                    align: 'center',
-                    font: 'exo2semibold',
-                    value: 'To begin, use your hand to click the button!',
-                    color: 'black',
-                    opacity: 0.7,
-                    width: 4
-                }
-            });
+            setTitle(text.intro.title);
+            setSubtitle(text.intro.subtitle);
             break;
         case 'fadeIn':
             fade('#env', 'environment', 'fog', 0.7, dur);
@@ -56,19 +35,17 @@ let animate = (scene, dur) => {
             );
             placeRandomTrees(40, 20, 70, dur);
             setTimeout(() => {
-                setTitle('Calibrated.');
+                setTitle(text.calibrate.title2);
                 setSubtitle('');
                 setTimeout(() => {
-                    setAttributes(title, {
-                        position: '0 3.5 -6'
-                    });
-                    setAttributes(subtitle, {
-                        position: '0 2.8 -6'
-                    });
-                    setTitle('This is your mind.');
-                    setSubtitle(`Your neurons fire in concerted efforts,
-                                generating waves of differing significance.
-                                We are going to examine these waves.`);
+                    setAttributes(title, { position: '0 3.5 -6' });
+                    setAttributes(subtitle, { position: '0 2.8 -6' });
+                    setTitleColor(COLORS.white);
+                    setTitle(text.initial.title);
+                    setSubtitle(text.initial.subtitle);
+                    setTimeout(() => {
+                        createButton("deltaButton", transitionDelta);
+                    }, 5000); // Match with Laura's audio
                 }, dur);
             }, dur);
             break;

@@ -1,19 +1,17 @@
-let setEnvironment = scene => {
+let setEnvironment = (scene) => {
     killTrees();
     env.setAttribute('environment', scene);
-}
+};
 
 let sceneDelta = () => {
-    document
-        .getElementsByClassName('environmentGround')[0]
+    document.getElementsByClassName('environmentGround')[0]
         .setAttribute('animation', {
             property: 'position',
             to: '0 0 0',
             dur: 0,
             easing: 'easeInQuad'
         });
-    document
-        .getElementsByClassName('environmentGround')[0]
+    document.getElementsByClassName('environmentGround')[0]
         .setAttribute('animation__2', {
             property: 'scale',
             to: '1 1 1',
@@ -21,6 +19,11 @@ let sceneDelta = () => {
             easing: 'linear'
         });
     setEnvironment(scenes.delta);
+    setTitleColor(COLORS.delta);
+    setSubtitleColor(COLORS.white);
+    setTitle(text.delta.title);
+    setSubtitle(text.delta.subtitle);
+    enableGUI('delta');
 }
 
 let sceneTheta = () => {
@@ -192,8 +195,6 @@ let scenes = {
         gridColor: '#478d54',
         shadow: false
     },
-
-
     beta: {
         active: true,
         seed: 3,

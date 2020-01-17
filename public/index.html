@@ -1,6 +1,6 @@
 <html>
     <head>
-        <meta charset="utf-8" />
+        <meta charset="utf-8"/>
         <title>Paethos</title>
         <link href="css/styles.css" rel="stylesheet">
         <!-- LIBRARIES -->
@@ -15,6 +15,7 @@
         <script src="js/tools.js" defer></script>
         <script src="js/scenes.js" defer></script>
         <script src="js/transitions.js" defer></script>
+        <script src="js/text.js" defer></script>
         <script src="js/script.js" defer></script>
     </head>
 
@@ -30,14 +31,9 @@
             <!-- Controllers -->
             <a-entity id="leftHand" hand-controls="left"></a-entity>
             <a-entity id="rightHand" hand-controls="right"></a-entity>
-            <!-- id="rightHand"
-                hand-controls="right"
-                controller-cursor
-                laser-controls="hand: right"
-                line="color: red; opacity: 0.9"></a-entity> -->
 
             <audio loop autoplay>
-                <source src="assets/paethos.mp3" type="audio/mpeg" />
+                <source src="assets/paethos.mp3" type="audio/mpeg"/>
                 Your browser does not support the audio tag.
             </audio>
 
@@ -64,49 +60,60 @@
                 opacity="0"
                 position="0 2 0"
                 side="double"
-                visible="false">
-            </a-sphere>
-            <a-entity id="startButton" position="0 1 -1" ui-button></a-entity>
-            <a-entity id="title"
-                position="0 2.3 -2"
-                text="align: center; font: exo2bold; color: black; width: 2"></a-entity>
-            <a-entity id="subtitle"
-                position="0 2.2 -2"
-                text="align: center; font: exo2bold; color: black; width: 1.5"></a-entity>
-            </a-entity>
-            <a-gui-flex-container
-                id="gui"
-                justify-content="center"
-                align-items="normal"
-                opacity="0"
-                position="0 1.6 -8">
-                <a-gui-circle-loader id="delta" class="circle" active-color="#8598c2"></a-gui-circle-loader>
-                <a-gui-circle-loader id="theta" class="circle" active-color="#ae91b8"></a-gui-circle-loader>
-                <a-gui-circle-loader id="alpha" class="circle" active-color="#82a799"></a-gui-circle-loader>
-                <a-gui-circle-loader id="beta" class="circle" active-color="#e7ce6d"></a-gui-circle-loader>
-                <a-gui-circle-loader id="gamma" class="circle" active-color="#e9867f"></a-gui-circle-loader>
-            </a-gui-flex-container>
-            <a-gui-flex-container
-                id="focusedGUI"
-                justify-content="center"
-                align-items="normal"
-                opacity="0"
-                width="6"
+                scale="3 1 3"
+                visible="false"></a-sphere>
+            <a-entity id="startButton" position="0 0.75 -0.8" ui-button></a-entity>
+            <a-entity
+                id="heading"
+                position="0 1.75 -1"
+                visible="false"
+                text="align: center; font: exo2bold; color: white; value: Scene I; opacity: 0; width: 4;"></a-entity>
+            <a-entity
+                id="subheading"
+                position="0 1.6 -1"
+                visible="false"
+                text="align: center; font: exo2bold; color: white; opacity: 0; width: 1.5;"></a-entity>
+            <a-entity
+                id="title"
+                position="0 2.5 -3"
+                text="align: center; font: exo2bold; color: black; width: 8"></a-entity>
+            <a-entity
+                id="subtitle"
+                position="0 2 -3"
+                text="align: center; font: exo2bold; color: black; opacity: 0.7; width: 4"></a-entity>
+        </a-entity>
+        <a-gui-flex-container
+            id="gui"
+            justify-content="center"
+            align-items="normal"
+            opacity="0"
+            position="0 1.6 -8">
+            <a-gui-circle-loader id="delta" class="circle" active-color="#8598c2"></a-gui-circle-loader>
+            <a-gui-circle-loader id="theta" class="circle" active-color="#ae91b8"></a-gui-circle-loader>
+            <a-gui-circle-loader id="alpha" class="circle" active-color="#82a799"></a-gui-circle-loader>
+            <a-gui-circle-loader id="beta" class="circle" active-color="#e7ce6d"></a-gui-circle-loader>
+            <a-gui-circle-loader id="gamma" class="circle" active-color="#e9867f"></a-gui-circle-loader>
+        </a-gui-flex-container>
+        <a-gui-flex-container
+            id="focusedGUI"
+            justify-content="center"
+            align-items="normal"
+            opacity="0"
+            width="6"
+            height="0.5"
+            padding="1"
+            position="0 0.35 -6">
+            <a-gui-label
+                id="focused"
+                width="4"
                 height="0.5"
-                padding="1"
-                position="0 0.35 -6">
-                <a-gui-label
-                    id="focused"
-                    width="4"
-                    height="0.5"
-                    value="Not Focused"
-                    opacity="0.5"
-                    font-family="Arial"
-                    background-color="#333333"
-                    font-color="lightgreen"
-                    visible="false">
-                </a-gui-label>
-            </a-gui-flex-container>
-        </a-scene>
-    </body>
+                value="Not Focused"
+                opacity="0.5"
+                font-family="Arial"
+                background-color="#333333"
+                font-color="lightgreen"
+                visible="false"></a-gui-label>
+        </a-gui-flex-container>
+    </a-scene>
+</body>
 </html>
