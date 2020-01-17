@@ -310,7 +310,7 @@ let sound = {
         final: createSound({ src: 'url(assets/narrator/final.mp3)' }),
         forest: createSound({ src: 'url(assets/narrator/scene0.mp3)' }),
         delta: createSound({ src: 'url(assets/narrator/scene1.mp3)' }),
-        theta: createSound({ src: 'url(assets/narrator/scene2.m4a)' }),
+        theta: createSound({ src: 'url(assets/narrator/scene2.mp3)' }),
         alpha: createSound({ src: 'url(assets/narrator/scene3.mp3)' }),
         beta: createSound({ src: 'url(assets/narrator/scene4.mp3)' }),
         gamma: createSound({ src: 'url(assets/narrator/scene5.mp3)' })
