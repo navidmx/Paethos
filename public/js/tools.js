@@ -87,6 +87,7 @@ for (let i = 0; i < waves.length; i++) {
     waveEls[i] = document.querySelector(`#${waves[i]} > a-ring`);
     document.querySelector(`#${waves[i]} > #loader_ring_count`).remove();
 }
+
 let circles = document.querySelectorAll('.circle');
 for (circle of circles) {
     setAttributes(circle, {

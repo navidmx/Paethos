@@ -147,6 +147,8 @@ function transitionGamma() {
 
 function transitionReset() {
     blackTransition();
+    soundFadeOut(sound.gamma);
+    soundFadeIn(sound.forest, true);
     setTimeout(() => {
         sceneFinal();
         placeRandomTrees(100, 50, 200, 0);

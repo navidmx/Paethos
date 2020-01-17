@@ -45,5 +45,13 @@ let text = {
         subheading: 'Nirvana',
         title: 'GAMMA WAVES',
         subtitle: 'The frequency of gamma waves is above that of neurons firing. They are related to heightened perception of deep concentration.'
+    },
+    final: {
+        title: 'Credits',
+        subtitle: `Navid Mamoon - Architect
+        Gabe Rasskin - Storyteller
+        Carlos Armendariz - Engineer
+        Jacob Dill - Sound Designer
+        Laura Koye - Narrator`
     }
 }

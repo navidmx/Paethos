@@ -105,16 +105,13 @@ let sceneGamma = () => {
 };
 
 let sceneFinal = () => {
+    playSound(sound.narrator.final);
     setEnvironment(scenes.final);
-    setTitleColor(COLORS.white);
-    setSubtitleColor(COLORS.white);
-    setTitle(text.gamma.title);
-    setSubtitle(text.gamma.subtitle);
-    enableGUI('gamma');
-    setTimeout(() => {
-        setSubtitle(text.lastButton);
-        createButton('resetButton', transitionReset);
-    }, 10000); // Match with Laura's audio
+    setTitleColor(COLORS.black);
+    setSubtitleColor(COLORS.black);
+    setTitle(text.final.title);
+    setSubtitle(text.final.subtitle);
+    enableGUI('focused');
 };
 
 let scenes = {
