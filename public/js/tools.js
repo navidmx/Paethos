@@ -8,7 +8,12 @@ const COLORS = {
     darkgreen: '#716C22',
     darkred: '#730A07',
     lightblue: '#D1F1FF',
-    skyblue: '#76D6FF'
+    skyblue: '#76D6FF',
+    delta: '#8598C2',
+    theta: '#AE91B8',
+    alpha: '#82A799',
+    beta: '#E7CE6D',
+    gamma: '#E9867F'
 };
 
 /* ---------------------------- Helper Functions ---------------------------- */
@@ -22,17 +27,13 @@ const rgbToHex = (r, g, b) => '#' + compToHex(r) + compToHex(g) + compToHex(b);
 const coinFlip = () => Math.random() > 0.5;
 
 const compToHex = (c) => {
-    if (c < 0) {
-        c = 0;
-    }
+    if (c < 0) c = 0;
     let hex = Math.floor(c).toString(16);
     return hex.length == 1 ? '0' + hex : hex;
 };
 
 const setAttributes = (el, attrs) => {
-    for (let key in attrs) {
-        el.setAttribute(key, attrs[key]);
-    }
+    for (let key in attrs) el.setAttribute(key, attrs[key]);
 };
 
 const hexToRgb = (hex) => {
@@ -50,28 +51,6 @@ const hexToRgb = (hex) => {
 
 let env = document.querySelector('#env');
 let scene = document.querySelector('#scene');
-let title = document.querySelector('#title');
-let subtitle = document.querySelector('#subtitle');
-
-env.setAttribute('environment', {
-    preset: 'forest',
-    skyType: 'gradient',
-    skyColor: COLORS.skyblue,
-    horizonColor: COLORS.lightblue,
-    shadow: true,
-    shadowSize: 10,
-    fog: 0.9,
-    playArea: 1.4,
-    ground: 'hills',
-    groundColor: COLORS.white,
-    groundColor2: COLORS.white,
-    groundTexture: 'checkerboard',
-    groundYScale: 80,
-    dressing: 'trees',
-    dressingAmount: 0,
-    dressingColor: COLORS.lightgreen,
-    dressingScale: 5
-});
 
 let focused = $('#focused');
 let waves = ['delta', 'theta', 'alpha', 'beta', 'gamma'];
@@ -79,6 +58,17 @@ let waveEls = [];
 for (let i = 0; i < waves.length; i++) {
     waveEls[i] = document.querySelector(`#${waves[i]} > a-ring`);
     document.querySelector(`#${waves[i]} > #loader_ring_count`).remove();
+}
+let circles = document.querySelectorAll('.circle');
+for (circle of circles) {
+    setAttributes(circle, {
+        'height': 1,
+        'width': 1,
+        'count': 0,
+        'margin': "0 0.2 0 0.2",
+        'visible': false,
+        'background-color': "#333333"
+    })
 }
 
 let ratio, currWave;
@@ -107,6 +97,12 @@ function getWaves() {
 }
 
 let enableGUI = interface => $(`#${interface}`).attr(`visible`, true);
+
+let title = document.querySelector('#title');
+let subtitle = document.querySelector('#subtitle');
+
+let setTitle = text => document.querySelector('#title').setAttribute('text', { value: text});
+let setSubtitle = text => document.querySelector('#subtitle').setAttribute('text', { value: text});
 
 // Transitions between two numbers or colors (type)
 
