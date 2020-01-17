@@ -262,6 +262,40 @@ let createSound = (attributes) => {
     return newSound;
 }
 
+let soundFadeIn = sound => {
+    let vol = 0;
+    sound.setAttribute('sound', 'volume', vol);
+    sound.components.sound.playSound();
+    let currInterval = setInterval(() => {
+        if (vol >= 1) clearInterval(currInterval);
+        sound.setAttribute('sound', 'volume', vol);
+        vol += 0.05;
+    }, 100);
+}
+
+let soundFadeOut = sound => {
+    let vol = 1;
+    let currInterval = setInterval(() => {
+        if (vol < 0) {
+            sound.components.sound.stopSound()
+            clearInterval(currInterval);
+        }
+        sound.setAttribute('sound', 'volume', vol);
+        vol -= 0.05;
+    }, 100);
+}
+
+let sound = {
+    forest: createSound({ src: 'url(assets/waves/forest.mp3)', loop: true}),
+    delta: createSound({ src: 'url(assets/waves/delta.mp3)', loop: true}),
+    theta: createSound({ src: 'url(assets/waves/theta.mp3)', loop: true}),
+    alpha: createSound({ src: 'url(assets/waves/alpha.mp3)', loop: true}),
+    beta: createSound({ src: 'url(assets/waves/beta.mp3)', loop: true}),
+    gamma: createSound({ src: 'url(assets/waves/gamma.mp3)', loop: true})
+}
+
+// Example for playing returned sound (must be called when ready to play sound): 
+// testNarration.components.sound.playSound();
 
 function toggleOceanVisibility() {
     let ocean = document.querySelector('a-ocean');
