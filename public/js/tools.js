@@ -100,9 +100,18 @@ let enableGUI = interface => $(`#${interface}`).attr(`visible`, true);
 
 let title = document.querySelector('#title');
 let subtitle = document.querySelector('#subtitle');
+let heading = document.querySelector("#heading");
+let subheading = document.querySelector("#subheading");
 
-let setTitle = text => document.querySelector('#title').setAttribute('text', { value: text});
-let setSubtitle = text => document.querySelector('#subtitle').setAttribute('text', { value: text});
+let setHeading = text => heading.setAttribute('text', { value: text } );
+let setSubheading = text => subheading.setAttribute('text', { value: text } );
+let setTitle = text => title.setAttribute('text', { value: text } );
+let setSubtitle = text => subtitle.setAttribute('text', { value: text } );
+
+let setHeadingColor = color => heading.setAttribute('text', { 'font-color': color } );
+let setSubheadingColor = color => subheading.setAttribute('text', { 'font-color': color } );
+let setTitleColor = color => title.setAttribute('text', { 'font-color': color } );
+let setSubtitleColor = color => subtitle.setAttribute('text', { 'font-color': color } );
 
 // Transitions between two numbers or colors (type)
 
