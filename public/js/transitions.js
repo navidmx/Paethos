@@ -101,3 +101,27 @@ function transitionDelta() {
     }, 5000);
     setTimeout(sceneDelta, 8000);
 }
+
+function transitionTheta() {
+    blackTransition();
+    showHeading(text.theta.heading, text.theta.subheading, COLORS.theta);
+    setTimeout(sceneTheta, 3000);
+}
+
+function transitionAlpha() {
+    blackTransition();
+    showHeading(text.alpha.heading, text.alpha.subheading, COLORS.alpha);
+    setTimeout(sceneAlpha, 3000);
+}
+
+function transitionBeta() {
+    blackTransition();
+    showHeading(text.beta.heading, text.beta.subheading, COLORS.beta);
+    setTimeout(sceneBeta, 3000);
+}
+
+function transitionGamma() {
+    blackTransition();
+    showHeading(text.gamma.heading, text.gamma.subheading, COLORS.gamma);
+    setTimeout(sceneGamma, 3000);
+}

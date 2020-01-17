@@ -24,6 +24,63 @@ let sceneDelta = () => {
     setTitle(text.delta.title);
     setSubtitle(text.delta.subtitle);
     enableGUI('delta');
+    setTimeout(() => {
+        setSubtitle(text.button);
+        createButton("thetaButton", transitionTheta);
+    }, 5000); // Match with Laura's audio
+}
+
+let sceneTheta = () => {
+    setEnvironment(scenes.theta);
+    setTitleColor(COLORS.theta);
+    setSubtitleColor(COLORS.white);
+    setTitle(text.theta.title);
+    setSubtitle(text.theta.subtitle);
+    enableGUI('theta');
+    setTimeout(() => {
+        setSubtitle(text.button);
+        createButton("alphaButton", transitionAlpha);
+    }, 10000); // Match with Laura's audio
+}
+
+let sceneAlpha = () => {
+    setEnvironment(scenes.alpha);
+    setTitleColor(COLORS.alpha);
+    setSubtitleColor(COLORS.white);
+    setTitle(text.alpha.title);
+    setSubtitle(text.alpha.subtitle);
+    enableGUI('alpha');
+    
+    setTimeout(() => {
+        setSubtitle(text.button);
+        createButton("betaButton", transitionBeta;
+    }, 10000); // Match with Laura's audio
+}
+
+let sceneBeta = () => {
+    setEnvironment(scenes.beta);
+    setTitleColor(COLORS.beta);
+    setSubtitleColor(COLORS.white);
+    setTitle(text.beta.title);
+    setSubtitle(text.beta.subtitle);
+    enableGUI('beta');
+    setTimeout(() => {
+        setSubtitle(text.button);
+        createButton("gammaButton", transitionGamma);
+    }, 10000); // Match with Laura's audio
+}
+
+let sceneGamma = () => {
+    setEnvironment(scenes.gamma);
+    setTitleColor(COLORS.gamma);
+    setSubtitleColor(COLORS.white);
+    setTitle(text.gamma.title);
+    setSubtitle(text.gamma.subtitle);
+    enableGUI('gamma');
+    setTimeout(() => {
+        setSubtitle(text.button);
+        createButton("resetButton", transitionReset);
+    }, 10000); // Match with Laura's audio
 }
 
 let scenes = {
