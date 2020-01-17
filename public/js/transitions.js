@@ -149,8 +149,8 @@ function transitionReset() {
     blackTransition();
     setTimeout(() => {
         sceneFinal();
-        placeRandomTrees(100, 50, 200, 0);
-        env.setAttribute('scale', '8 1 8');
+        placeRandomTrees(100, 50, 70, 0);
+        env.setAttribute('scale', '1 1 1');
         document
             .getElementsByClassName('environmentGround')[0]
             .setAttribute('animation', {
