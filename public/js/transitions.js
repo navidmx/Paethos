@@ -84,9 +84,7 @@ function lowerWorld(duration) {
 
 function killTrees() {
     let trees = document.getElementsByClassName('tree');
-    for (tree of trees) {
-        tree.remove();
-    }
+    for (tree of trees) tree.remove();
 }
 
 function transitionDelta() {
@@ -100,4 +98,30 @@ function transitionDelta() {
         showHeading(text.delta.heading, text.delta.subheading, COLORS.delta);
     }, 5000);
     setTimeout(sceneDelta, 8000);
+}
+
+function transitionTheta() {
+    blackTransition();
+    showHeading(text.theta.heading, text.theta.subheading, COLORS.theta);
+    setTimeout(sceneTheta, 3000);
+}
+
+function transitionAlpha() {
+    blackTransition();
+    showHeading(text.alpha.heading, text.alpha.subheading, COLORS.alpha);
+    setTimeout(toggleOceanVisibility, 2000);
+    setTimeout(sceneAlpha, 3000);
+}
+
+function transitionBeta() {
+    blackTransition();
+    showHeading(text.beta.heading, text.beta.subheading, COLORS.beta);
+    setTimeout(toggleOceanVisibility, 2000);
+    setTimeout(sceneBeta, 3000);
+}
+
+function transitionGamma() {
+    blackTransition();
+    showHeading(text.gamma.heading, text.gamma.subheading, COLORS.gamma);
+    setTimeout(sceneGamma, 3000);
 }
