@@ -1,5 +1,7 @@
 let text = {
-    button: 'Press the button below to continue.',
+    firstButton: "When you're ready, press the button below to begin your journey.",
+    button: "When you're ready, press the button below to continue to the next wave.",
+    lastButton: "When you're ready, press the button below to return to the forest.",
     intro: {
         title: 'Welcome to PAETHOS',
         subtitle: 'To begin, use your hand to click the button!'

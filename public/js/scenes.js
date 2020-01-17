@@ -27,7 +27,7 @@ let sceneDelta = () => {
     setTimeout(() => {
         setSubtitle(text.button);
         createButton("thetaButton", transitionTheta);
-    }, 5000); // Match with Laura's audio
+    }, 10000); // Match with Laura's audio
 }
 
 let sceneTheta = () => {
@@ -50,17 +50,16 @@ let sceneAlpha = () => {
     setTitle(text.alpha.title);
     setSubtitle(text.alpha.subtitle);
     enableGUI('alpha');
-    
     setTimeout(() => {
         setSubtitle(text.button);
-        createButton("betaButton", transitionBeta;
+        createButton("betaButton", transitionBeta);
     }, 10000); // Match with Laura's audio
 }
 
 let sceneBeta = () => {
     setEnvironment(scenes.beta);
     setTitleColor(COLORS.beta);
-    setSubtitleColor(COLORS.white);
+    setSubtitleColor(COLORS.black);
     setTitle(text.beta.title);
     setSubtitle(text.beta.subtitle);
     enableGUI('beta');
@@ -78,50 +77,9 @@ let sceneGamma = () => {
     setSubtitle(text.gamma.subtitle);
     enableGUI('gamma');
     setTimeout(() => {
-        setSubtitle(text.button);
+        setSubtitle(text.lastButton);
         createButton("resetButton", transitionReset);
     }, 10000); // Match with Laura's audio
-}
-
-let sceneTheta = () => {
-    document
-        .getElementsByClassName('environmentGround')[0]
-        .setAttribute('animation', {
-            property: 'position',
-            to: '0 0 0',
-            dur: 0,
-            easing: 'easeInQuad'
-        });
-    document
-        .getElementsByClassName('environmentGround')[0]
-        .setAttribute('animation__2', {
-            property: 'scale',
-            to: '1 1 1',
-            dur: 0,
-            easing: 'linear'
-        });
-    setEnvironment(scenes.theta);
-}
-
-let sceneAlpha = () => {
-    document
-        .getElementsByClassName('environmentGround')[0]
-        .setAttribute('animation', {
-            property: 'position',
-            to: '0 0 0',
-            dur: 0,
-            easing: 'easeInQuad'
-        });
-    document
-        .getElementsByClassName('environmentGround')[0]
-        .setAttribute('animation__2', {
-            property: 'scale',
-            to: '1 1 1',
-            dur: 0,
-            easing: 'linear'
-        });
-    setEnvironment(scenes.alpha);
-    toggleOceanVisibility();
 }
 
 let scenes = {
@@ -215,8 +173,6 @@ let scenes = {
         gridColor: '#478d54',
         shadow: false
     },
-
-    // WATERWORLD
     alpha: {
         active: true,
         seed: 14,

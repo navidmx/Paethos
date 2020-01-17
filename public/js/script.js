@@ -44,7 +44,7 @@ let animate = (scene, dur) => {
                     setTitle(text.initial.title);
                     setSubtitle(text.initial.subtitle);
                     setTimeout(() => {
-                        setSubtitle(text.button);
+                        setSubtitle(text.firstButton);
                         createButton("deltaButton", transitionDelta);
                     }, 5000); // Match with Laura's audio
                 }, dur);

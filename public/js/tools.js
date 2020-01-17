@@ -76,7 +76,6 @@ for (circle of circles) {
         'height': 1,
         'width': 1,
         'count': 0,
-        'margin': "0 0.2 0 0.2",
         'visible': false,
         'background-color': "#333333"
     })
@@ -268,15 +267,10 @@ function toggleOceanVisibility() {
 }
 
 function lowerDressing(duration){
-
     env.setAttribute('animation', {
-
         property: 'environmentDressing',
         to: "0 -5 0",
         duration: duration,
         easing: 'easeInQuad'
-
-
     });
-
 }
