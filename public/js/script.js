@@ -1,12 +1,12 @@
 // Start animation sequences with a given duration
 let animate = (scene, dur) => {
+    let start = document.querySelector('#startButton');
     switch (scene) {
         case 'intro':
-            let start = document.querySelector('#startButton');
             setTimeout(() => {
                 start.addEventListener('pressed', () => {
                     animate('fadeIn', 8000);
-                    start.remove();
+                    start.setAttribute('visible', false);
                     document.querySelector('#title').setAttribute('text', {
                         value: 'Initializing...'
                     });
@@ -69,19 +69,19 @@ let animate = (scene, dur) => {
                 setAttributes(subtitle, {
                     position: '0 2.2 -2',
                     text: {
-                        value: 'View your brain activity below...',
+                        value:
+                            'View your brain activity below... Press button to move on.',
                         width: 1.5
                     }
                 });
+                start.setAttribute('visible', false);
                 gui.setAttribute('visible', 'true');
             }, dur);
             break;
     }
 };
 
-animate('fadeIn', 10);
-
-
+animate('intro', 1000);
 
 //document.getElementsByClassName("tree").setAttribute(object, property, rgbToHex(r, g, b))
 /*

@@ -142,3 +142,9 @@ function sceneTwo() {
         shadow: false
     });*/
 }
+/*
+setTimeout(() => {
+    firstTransition();
+    fade('#env', 'environment', 'fog', 1, 5000);
+}, 1500);
+*/
