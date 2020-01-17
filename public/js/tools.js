@@ -47,8 +47,9 @@ const hexToRgb = hex => {
         : null;
 };
 
-const createButton = (id, action) => {
-    $(`<a-entity id=${id} ui-button position="0 0.75 -0.8">`).appendTo("#env");
+const createButton = (id, action, color = '#960960') => {
+    $(`<a-entity id=${id} ui-button position="0 0.75 -0.8" color=${color}>`)
+        .appendTo("#env");
     setTimeout(() => {
         let button = document.querySelector('#' + id);
         button.addEventListener('pressed', () => {
