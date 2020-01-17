@@ -26,7 +26,7 @@ const rgbToHex = (r, g, b) => '#' + compToHex(r) + compToHex(g) + compToHex(b);
 
 const coinFlip = () => Math.random() > 0.5;
 
-const compToHex = c => {
+const compToHex = (c) => {
     if (c < 0) c = 0;
     let hex = Math.floor(c).toString(16);
     return hex.length == 1 ? '0' + hex : hex;
@@ -36,7 +36,7 @@ const setAttributes = (el, attrs) => {
     for (let key in attrs) el.setAttribute(key, attrs[key]);
 };
 
-const hexToRgb = hex => {
+const hexToRgb = (hex) => {
     let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result
         ? {
@@ -47,16 +47,33 @@ const hexToRgb = hex => {
         : null;
 };
 
-const createButton = (id, action) => {
-    $(`<a-entity id=${id} ui-button position="0 0.75 -0.8">`).appendTo("#env");
+const createButton = (id, action, color = '#960960') => {
+    $(
+        `<a-entity id=${id} ui-button="color: ${color}" position="0 0.75 -0.8" light="type: point; intensity: 0.2">`
+    ).appendTo('#env');
     setTimeout(() => {
         let button = document.querySelector('#' + id);
         button.addEventListener('pressed', () => {
             action();
             button.remove();
+            document.querySelector('#light').remove();
         });
     }, 1000);
-}
+    placeEntity({
+        id: 'light',
+        position: '0 1.0 -0.8',
+        light: {
+            type: 'point',
+            intensity: 0
+        }
+    });
+    document.querySelector('#light').setAttribute('animation', {
+        property: 'light.intensity',
+        to: 0.15,
+        dur: 1000,
+        easing: 'easeInQuad'
+    });
+};
 
 // Set initial environment
 
@@ -73,13 +90,13 @@ for (let i = 0; i < waves.length; i++) {
 let circles = document.querySelectorAll('.circle');
 for (circle of circles) {
     setAttributes(circle, {
-        'height': 1,
-        'width': 1,
-        'count': 0,
-        'margin': "0 0.2 0 0.2",
-        'visible': false,
-        'background-color': "#333333"
-    })
+        height: 1,
+        width: 1,
+        count: 0,
+        margin: '0 0.2 0 0.2',
+        visible: false,
+        'background-color': '#333333'
+    });
 }
 
 let ratio, currWave;
@@ -107,22 +124,24 @@ function getWaves() {
     }, 100);
 }
 
-let enableGUI = interface => $(`#${interface}`).attr(`visible`, true);
+let enableGUI = (interface) => $(`#${interface}`).attr(`visible`, true);
 
 let title = document.querySelector('#title');
 let subtitle = document.querySelector('#subtitle');
-let heading = document.querySelector("#heading");
-let subheading = document.querySelector("#subheading");
+let heading = document.querySelector('#heading');
+let subheading = document.querySelector('#subheading');
 
-let setHeading = text => heading.setAttribute('text', { value: text } );
-let setSubheading = text => subheading.setAttribute('text', { value: text } );
-let setTitle = text => title.setAttribute('text', { value: text } );
-let setSubtitle = text => subtitle.setAttribute('text', { value: text } );
+let setHeading = (text) => heading.setAttribute('text', { value: text });
+let setSubheading = (text) => subheading.setAttribute('text', { value: text });
+let setTitle = (text) => title.setAttribute('text', { value: text });
+let setSubtitle = (text) => subtitle.setAttribute('text', { value: text });
 
-let setHeadingColor = color => heading.setAttribute('text', { color: color } );
-let setSubheadingColor = color => subheading.setAttribute('text', { color: color } );
-let setTitleColor = color => title.setAttribute('text', { color: color } );
-let setSubtitleColor = color => subtitle.setAttribute('text', { color: color } );
+let setHeadingColor = (color) => heading.setAttribute('text', { color: color });
+let setSubheadingColor = (color) =>
+    subheading.setAttribute('text', { color: color });
+let setTitleColor = (color) => title.setAttribute('text', { color: color });
+let setSubtitleColor = (color) =>
+    subtitle.setAttribute('text', { color: color });
 
 let showHeading = (headingText, subheadingText, color) => {
     setHeading(headingText);
@@ -160,7 +179,7 @@ let showHeading = (headingText, subheadingText, color) => {
             subheading.setAttribute('visible', 'false');
         }, 2000);
     }, 4000);
-}
+};
 
 // Transitions between two numbers or colors (type)
 
@@ -246,37 +265,71 @@ function changeEnvironment(property, result, dur) {
 // RETURNS sound element based on given attributes
 let createSound = (attributes) => {
     let newSound = document.createElement('a-sound');
-    setAttributes(newSound, {'sound' : attributes});
+    setAttributes(newSound, { sound: attributes });
     scene.appendChild(newSound);
     return newSound;
-}
+};
 
-// Example for using create sound
-let testNarration = createSound({
-        'id' : 'narration',
-        'src' : 'url(assets/test_narration.mp3)',
-        'autoplay' : 'false'
-        });
+let playSound = (sound) => sound.components.sound.playSound();
+let stopSound = (sound) => sound.components.sound.stopSound();
 
-// Example for playing returned sound (must be called when ready to play sound): 
+let soundFadeIn = (sound, muted) => {
+    let max = muted ? 0.3 : 1;
+    let vol = 0;
+    sound.setAttribute('sound', 'volume', vol);
+    sound.components.sound.playSound();
+    let currInterval = setInterval(() => {
+        if (vol >= max) clearInterval(currInterval);
+        sound.setAttribute('sound', 'volume', vol);
+        vol += 0.05;
+    }, 100);
+};
+
+let soundFadeOut = (sound) => {
+    let vol = sound.components.sound.data.volume;
+    let currInterval = setInterval(() => {
+        if (vol < 0) {
+            sound.components.sound.stopSound();
+            clearInterval(currInterval);
+        }
+        sound.setAttribute('sound', 'volume', vol);
+        vol -= 0.05;
+    }, 100);
+};
+
+let sound = {
+    forest: createSound({ src: 'url(assets/waves/forest.mp3)', loop: true }),
+    delta: createSound({ src: 'url(assets/waves/delta.mp3)', loop: true }),
+    theta: createSound({ src: 'url(assets/waves/theta.mp3)', loop: true }),
+    alpha: createSound({ src: 'url(assets/waves/alpha.mp3)', loop: true }),
+    beta: createSound({ src: 'url(assets/waves/beta.mp3)', loop: true }),
+    gamma: createSound({ src: 'url(assets/waves/gamma.mp3)', loop: true }),
+    narrator: {
+        eyes: createSound({ src: 'url(assets/narrator/eyes.m4a)' }),
+        final: createSound({ src: 'url(assets/narrator/final.mp3)' }),
+        forest: createSound({ src: 'url(assets/narrator/scene0.mp3)' }),
+        delta: createSound({ src: 'url(assets/narrator/scene1.mp3)' }),
+        theta: createSound({ src: 'url(assets/narrator/scene2.m4a)' }),
+        alpha: createSound({ src: 'url(assets/narrator/scene3.mp3)' }),
+        beta: createSound({ src: 'url(assets/narrator/scene4.mp3)' }),
+        gamma: createSound({ src: 'url(assets/narrator/scene5.mp3)' })
+    }
+};
+
+// Example for playing returned sound (must be called when ready to play sound):
 // testNarration.components.sound.playSound();
 
 function toggleOceanVisibility() {
     let ocean = document.querySelector('a-ocean');
-    if(!ocean.getAttribute('visible')) ocean.setAttribute('visible', 'true');
+    if (!ocean.getAttribute('visible')) ocean.setAttribute('visible', 'true');
     else ocean.setAttribute('visible', 'false');
 }
 
-function lowerDressing(duration){
-
+function lowerDressing(duration) {
     env.setAttribute('animation', {
-
         property: 'environmentDressing',
-        to: "0 -5 0",
+        to: '0 -5 0',
         duration: duration,
         easing: 'easeInQuad'
-
-
     });
-
 }
