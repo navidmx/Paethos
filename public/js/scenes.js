@@ -13,7 +13,7 @@ let sceneForest = () => {
     setTimeout(() => {
         setSubtitle(text.firstButton);
         createButton('deltaButton', transitionDelta);
-    }, 38000); // Match with Laura's audio
+    }, 38000);
 };
 
 let sceneDelta = () => {
