@@ -23,6 +23,47 @@ let sceneDelta = () => {
     setEnvironment(scenes.delta);
 }
 
+let sceneTheta = () => {
+    document
+        .getElementsByClassName('environmentGround')[0]
+        .setAttribute('animation', {
+            property: 'position',
+            to: '0 0 0',
+            dur: 0,
+            easing: 'easeInQuad'
+        });
+    document
+        .getElementsByClassName('environmentGround')[0]
+        .setAttribute('animation__2', {
+            property: 'scale',
+            to: '1 1 1',
+            dur: 0,
+            easing: 'linear'
+        });
+    setEnvironment(scenes.theta);
+}
+
+let sceneAlpha = () => {
+    document
+        .getElementsByClassName('environmentGround')[0]
+        .setAttribute('animation', {
+            property: 'position',
+            to: '0 0 0',
+            dur: 0,
+            easing: 'easeInQuad'
+        });
+    document
+        .getElementsByClassName('environmentGround')[0]
+        .setAttribute('animation__2', {
+            property: 'scale',
+            to: '1 1 1',
+            dur: 0,
+            easing: 'linear'
+        });
+    setEnvironment(scenes.alpha);
+    toggleOceanVisibility();
+}
+
 let scenes = {
     initial: {
         skyType: 'gradient',
@@ -113,5 +154,71 @@ let scenes = {
         grid: '1x1',
         gridColor: '#478d54',
         shadow: false
+    },
+
+    // WATERWORLD
+    alpha: {
+        active: true,
+        seed: 14,
+        skyType: 'atmosphere',
+        skyColor: COLORS.skyblue,
+        horizonColor: '#78D8FF',
+        lighting: 'point',
+        lightPosition: {
+            x: 0,
+            y: 5,
+            z: 3
+        },
+        fog: 0.9,
+        flatShading: false,
+        playArea: 10,
+        ground: 'flat',
+        groundYScale: 1,
+        groundTexture: 'none',
+        groundColor: '#7AD2F7',
+        groundColor2: '#694439',
+        dressing: 'none',
+        dressingAmount: 30,
+        dressingColor: '#657067',
+        dressingScale: 20,
+        dressingVariance: {
+            x: 20,
+            y: 20,
+            z: 20
+        },
+        dressingUniformScale: true,
+        dressingOnPlayArea: 0,
+        grid: '0x0',
+        gridColor: '#478d54',
+        shadow: false
+    },
+
+
+    beta: {
+        active: true,
+        seed: 3,
+        skyType: 'gradient',
+        skyColor: '#1fbfd1',
+        horizonColor: '#ddd',
+        lighting: 'point',
+        lightPosition: { x: -0.11, y: 0.16, z: 0.33 },
+        fog: 0.67,
+        flatShading: true,
+        playArea: 1,
+        ground: 'hills',
+        groundYScale: 10,
+        groundTexture: 'none',
+        groundColor: '#e7ce4f',
+        groundColor2: '#ffdc69',
+        dressing: 'arches',
+        dressingAmount: 18,
+        dressingColor: '#795449',
+        dressingScale: 26,
+        dressingVariance: { x: 20, y: 40, z: 20 },
+        dressingUniformScale: true,
+        dressingOnPlayArea: 0.04,
+        grid: 'none',
+        gridColor: '#ccc',
+        shadow: false
     }
-}
+};
