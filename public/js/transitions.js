@@ -1,10 +1,24 @@
-function fadeOutBlack(dur) {
-    overlay = document.querySelector('#overlay');
-    $('#overlay').fadeIn(dur);
+/* ---------------------------- Helper Functions ---------------------------- */
+let blackout = document.querySelector("#blackout");
+
+let fadeOutBlack = dur => {
+    blackout.setAttribute('visibility', true);
+    blackout.setAttribute('animation', {
+        property: 'material.opacity',
+        to: 1,
+        dur: dur,
+        easing: 'easeInQuad'
+    })
 }
 
-function fadeInBlack(dur) {
-    $('#overlay').fadeOut(dur);
+let fadeInBlack = dur => {
+    blackout.setAttribute('animation', {
+        property: 'material.opacity',
+        to: 0,
+        dur: dur,
+        easing: 'easeInQuad'
+    })
+    setTimeout(() => blackout.setAttribute('visibility', false), dur);
 }
 
 function blackTransition() {
@@ -68,11 +82,13 @@ function lowerWorld(duration) {
 }
 
 function killTrees() {
-    let trees = document.getElementsByClassName('tree');
+    let trees = document.querySelectorAll('.tree');
     for (tree of trees) {
         tree.remove();
     }
 }
+
+/* -------------------------------------------------------------------------- */
 
 function firstTransition() {
     lowerWorld(10000);
@@ -84,61 +100,6 @@ function firstTransition() {
         blackTransition();
     }, 5000);
     setTimeout(() => {
-        sceneTwo();
+        sceneDelta();
     }, 8000);
-}
-
-function sceneTwo() {
-    document
-        .getElementsByClassName('environmentGround')[0]
-        .setAttribute('animation', {
-            property: 'position',
-            to: '0 0 0',
-            dur: 0,
-            easing: 'easeInQuad'
-        });
-    document
-        .getElementsByClassName('environmentGround')[0]
-        .setAttribute('animation__2', {
-            property: 'scale',
-            to: '1 1 1',
-            dur: 0,
-            easing: 'linear'
-        });
-    $('#env').each(function() {
-        var attributes = this.attributes;
-        var i = attributes.length;
-        while (i--) {
-            this.removeAttributeNode(attributes[i]);
-        }
-    });
-    env.setAttribute('environment', {
-        preset: 'starry'
-    }); /*,
-        active: true,
-        seed: 1,
-        skyType: 'atmosphere',
-        skyColor: '#88c',
-        horizonColor: '#ddd',
-        lighting: 'distant',
-        lightPosition: { x: 0, y: -0.01, z: -0.46 },
-        fog: 0.7,
-        flatShading: false,
-        playArea: 1,
-        ground: 'hills',
-        groundYScale: 3,
-        groundTexture: 'none',
-        groundColor: '#553e35',
-        groundColor2: '#694439',
-        dressing: 'none',
-        dressingAmount: 100,
-        dressingColor: '#795449',
-        dressingScale: 5,
-        dressingVariance: { x: 1, y: 1, z: 1 },
-        dressingUniformScale: true,
-        grid: '1x1',
-        dressingOnPlayArea: 0,
-        gridColor: '#39d2f2',
-        shadow: false
-    });*/
 }

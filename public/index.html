@@ -3,12 +3,15 @@
         <meta charset="utf-8" />
         <title>Paethos</title>
         <link href="css/styles.css" rel="stylesheet">
+        <!-- LIBRARIES -->
         <script src="lib/jquery-3.4.1.min.js"></script>
         <script src="lib/aframe.min.js"></script>
         <script src="lib/aframe-gui.min.js"></script>
         <script src="lib/aframe-ui-widgets.min.js"></script>
         <script src="lib/aframe-environment-component.min.js"></script>
         <script src="lib/aframe-particle-system-component.min.js"></script>
+        <script src="lib/components/a-ocean.js"></script>
+        <!-- CUSTOM -->
         <script src="js/tools.js" defer></script>
         <script src="js/scenes.js" defer></script>
         <script src="js/transitions.js" defer></script>
@@ -38,67 +41,34 @@
 
             <!-- Environment (https://github.com/supermedium/aframe-environment-component) -->
             <a-entity id="env"></a-entity>
-            <a-entity id="startButton" position="0 1 -0.8" ui-button></a-entity>
+            <a-sphere
+                id="blackout"
+                color="black"
+                radius="1"
+                opacity="0"
+                position="0 2 0"
+                side="double"
+                visible="false">
+            </a-sphere>
+            <a-entity id="startButton" position="0 1 -1" ui-button></a-entity>
             <a-entity id="title"
                 position="0 2.3 -2"
                 text="align: center; font: exo2bold; color: black; width: 2"></a-entity>
             <a-entity id="subtitle"
                 position="0 2.2 -2"
                 text="align: center; font: exo2bold; color: black; width: 1.5"></a-entity>
+            </a-entity>
             <a-gui-flex-container
                 id="gui"
                 justify-content="center"
                 align-items="normal"
-                component-padding="0.1"
                 opacity="0"
-                width="6"
-                height="2"
                 position="0 1.6 -8">
-                <a-gui-circle-loader
-                    height="1"
-                    width="1"
-                    id="delta"
-                    count="0"
-                    active-color="#8598c2"
-                    margin="0 0.2 0 0.2"
-                    visible="false"
-                    background-color="#333333"></a-gui-circle-loader>
-                <a-gui-circle-loader
-                    height="1"
-                    width="1"
-                    id="theta"
-                    count="0"
-                    active-color="#ae91b8"
-                    margin="0 0.2 0 0.2"
-                    visible="false"
-                    background-color="#333333"></a-gui-circle-loader>
-                <a-gui-circle-loader
-                    height="1"
-                    width="1"
-                    id="alpha"
-                    count="0"
-                    active-color="#82a799"
-                    margin="0 0.2 0 0.2"
-                    visible="false"
-                    background-color="#333333"></a-gui-circle-loader>
-                <a-gui-circle-loader
-                    height="1"
-                    width="1"
-                    id="beta"
-                    count="0"
-                    active-color="#e7ce6d"
-                    margin="0 0.2 0 0.2"
-                    visible="false"
-                    background-color="#333333"></a-gui-circle-loader>
-                <a-gui-circle-loader
-                    height="1"
-                    width="1"
-                    id="gamma"
-                    count="0"
-                    active-color="#e9867f"
-                    margin="0 0.2 0 0.2"
-                    visible="false"
-                    background-color="#333333"></a-gui-circle-loader>
+                <a-gui-circle-loader id="delta" class="circle" active-color="#8598c2"></a-gui-circle-loader>
+                <a-gui-circle-loader id="theta" class="circle" active-color="#ae91b8"></a-gui-circle-loader>
+                <a-gui-circle-loader id="alpha" class="circle" active-color="#82a799"></a-gui-circle-loader>
+                <a-gui-circle-loader id="beta" class="circle" active-color="#e7ce6d"></a-gui-circle-loader>
+                <a-gui-circle-loader id="gamma" class="circle" active-color="#e9867f"></a-gui-circle-loader>
             </a-gui-flex-container>
             <a-gui-flex-container
                 id="focusedGUI"
@@ -108,7 +78,7 @@
                 width="6"
                 height="0.5"
                 padding="1"
-                position="0 0.35 -8">
+                position="0 0.35 -6">
                 <a-gui-label
                     id="focused"
                     width="4"
