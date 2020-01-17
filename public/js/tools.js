@@ -242,3 +242,41 @@ function changeEnvironment(property, result, dur) {
         easing: 'easeInCubic'
     });
 }
+
+// RETURNS sound element based on given attributes
+let createSound = (attributes) => {
+    let newSound = document.createElement('a-sound');
+    setAttributes(newSound, {'sound' : attributes});
+    scene.appendChild(newSound);
+    return newSound;
+}
+
+// Example for using create sound
+let testNarration = createSound({
+        'id' : 'narration',
+        'src' : 'url(assets/test_narration.mp3)',
+        'autoplay' : 'false'
+        });
+
+// Example for playing returned sound (must be called when ready to play sound): 
+// testNarration.components.sound.playSound();
+
+function toggleOceanVisibility() {
+    let ocean = document.querySelector('a-ocean');
+    if(!ocean.getAttribute('visible')) ocean.setAttribute('visible', 'true');
+    else ocean.setAttribute('visible', 'false');
+}
+
+function lowerDressing(duration){
+
+    env.setAttribute('animation', {
+
+        property: 'environmentDressing',
+        to: "0 -5 0",
+        duration: duration,
+        easing: 'easeInQuad'
+
+
+    });
+
+}

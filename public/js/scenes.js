@@ -83,6 +83,47 @@ let sceneGamma = () => {
     }, 10000); // Match with Laura's audio
 }
 
+let sceneTheta = () => {
+    document
+        .getElementsByClassName('environmentGround')[0]
+        .setAttribute('animation', {
+            property: 'position',
+            to: '0 0 0',
+            dur: 0,
+            easing: 'easeInQuad'
+        });
+    document
+        .getElementsByClassName('environmentGround')[0]
+        .setAttribute('animation__2', {
+            property: 'scale',
+            to: '1 1 1',
+            dur: 0,
+            easing: 'linear'
+        });
+    setEnvironment(scenes.theta);
+}
+
+let sceneAlpha = () => {
+    document
+        .getElementsByClassName('environmentGround')[0]
+        .setAttribute('animation', {
+            property: 'position',
+            to: '0 0 0',
+            dur: 0,
+            easing: 'easeInQuad'
+        });
+    document
+        .getElementsByClassName('environmentGround')[0]
+        .setAttribute('animation__2', {
+            property: 'scale',
+            to: '1 1 1',
+            dur: 0,
+            easing: 'linear'
+        });
+    setEnvironment(scenes.alpha);
+    toggleOceanVisibility();
+}
+
 let scenes = {
     initial: {
         skyType: 'gradient',
@@ -174,6 +215,8 @@ let scenes = {
         gridColor: '#478d54',
         shadow: false
     },
+
+    // WATERWORLD
     alpha: {
         active: true,
         seed: 14,
@@ -186,13 +229,13 @@ let scenes = {
             y: 5,
             z: 3
         },
-        fog: 0.8,
+        fog: 0.9,
         flatShading: false,
-        playArea: 1,
+        playArea: 10,
         ground: 'flat',
         groundYScale: 1,
         groundTexture: 'none',
-        groundColor: '#2e455f',
+        groundColor: '#7AD2F7',
         groundColor2: '#694439',
         dressing: 'none',
         dressingAmount: 30,
@@ -213,7 +256,7 @@ let scenes = {
         active: true,
         seed: 3,
         skyType: 'gradient',
-        skyColor: '#00f0c5',
+        skyColor: '#1fbfd1',
         horizonColor: '#ddd',
         lighting: 'point',
         lightPosition: { x: -0.11, y: 0.16, z: 0.33 },

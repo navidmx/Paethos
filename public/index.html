@@ -26,6 +26,8 @@
                 <a-cursor></a-cursor>
             </a-camera>
 
+           
+
             <!-- Controllers -->
             <a-entity id="leftHand" hand-controls="left"></a-entity>
             <a-entity id="rightHand" hand-controls="right"></a-entity>
@@ -37,6 +39,20 @@
 
             <!-- Environment (https://github.com/supermedium/aframe-environment-component) -->
             <a-entity id="env"></a-entity>
+
+            <a-ocean 
+            id="ocean" 
+            visible="false"
+            position="0 0.4 0"
+            amplitude="0.005"
+            amplitudeVariance="0"
+            density="15"
+            speed="0.1"
+            speedVariance="1"
+            width="10"
+            scale="5 5 5">
+            </a-ocean>
+
             <a-sphere
                 id="blackout"
                 color="black"
