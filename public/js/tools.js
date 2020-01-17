@@ -48,15 +48,26 @@ const hexToRgb = hex => {
 };
 
 const createButton = (id, action, color = '#960960') => {
-    $(`<a-entity id=${id} ui-button position="0 0.75 -0.8" color=${color}>`)
+    $(`<a-entity id=${id} ui-button position="0 0.75 -0.8" color=${color} light="type: point; intensity: 0.2">`)
         .appendTo("#env");
     setTimeout(() => {
         let button = document.querySelector('#' + id);
         button.addEventListener('pressed', () => {
             action();
             button.remove();
+            document.querySelector("#light").remove();
         });
     }, 1000);
+
+    placeEntity({
+        id: 'light',
+        position: "0 1.5 -0.8",
+        light: {
+            type: 'point',
+            intensity: "0.5"
+            
+        }
+    });
 }
 
 // Set initial environment
@@ -251,15 +262,6 @@ let createSound = (attributes) => {
     return newSound;
 }
 
-// Example for using create sound
-let testNarration = createSound({
-        'id' : 'narration',
-        'src' : 'url(assets/test_narration.mp3)',
-        'autoplay' : 'false'
-        });
-
-// Example for playing returned sound (must be called when ready to play sound): 
-// testNarration.components.sound.playSound();
 
 function toggleOceanVisibility() {
     let ocean = document.querySelector('a-ocean');
