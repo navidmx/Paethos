@@ -48,7 +48,7 @@ const hexToRgb = hex => {
 };
 
 const createButton = (id, action, color = '#960960') => {
-    $(`<a-entity id=${id} ui-button position="0 0.75 -0.8" color=${color} light="type: point; intensity: 0.2">`)
+    $(`<a-entity id=${id} ui-button="color: ${color}" position="0 0.75 -0.8" light="type: point; intensity: 0.2">`)
         .appendTo("#env");
     setTimeout(() => {
         let button = document.querySelector('#' + id);
@@ -58,15 +58,19 @@ const createButton = (id, action, color = '#960960') => {
             document.querySelector("#light").remove();
         });
     }, 1000);
-
     placeEntity({
         id: 'light',
-        position: "0 1.5 -0.8",
+        position: '0 1.0 -0.8',
         light: {
             type: 'point',
-            intensity: "0.5"
-            
+            intensity: 0
         }
+    });
+    document.querySelector("#light").setAttribute('animation', {
+        property: 'light.intensity',
+        to: 0.15,
+        dur: 1000,
+        easing: 'easeInQuad'
     });
 }
 
@@ -262,19 +266,23 @@ let createSound = (attributes) => {
     return newSound;
 }
 
-let soundFadeIn = sound => {
+let playSound = sound => sound.components.sound.playSound();
+let stopSound = sound => sound.components.sound.stopSound();
+
+let soundFadeIn = (sound, muted) => {
+    let max = muted ? 0.3 : 1;
     let vol = 0;
     sound.setAttribute('sound', 'volume', vol);
     sound.components.sound.playSound();
     let currInterval = setInterval(() => {
-        if (vol >= 1) clearInterval(currInterval);
+        if (vol >= max) clearInterval(currInterval);
         sound.setAttribute('sound', 'volume', vol);
         vol += 0.05;
     }, 100);
 }
 
 let soundFadeOut = sound => {
-    let vol = 1;
+    let vol = sound.components.sound.data.volume;
     let currInterval = setInterval(() => {
         if (vol < 0) {
             sound.components.sound.stopSound()
@@ -291,7 +299,17 @@ let sound = {
     theta: createSound({ src: 'url(assets/waves/theta.mp3)', loop: true}),
     alpha: createSound({ src: 'url(assets/waves/alpha.mp3)', loop: true}),
     beta: createSound({ src: 'url(assets/waves/beta.mp3)', loop: true}),
-    gamma: createSound({ src: 'url(assets/waves/gamma.mp3)', loop: true})
+    gamma: createSound({ src: 'url(assets/waves/gamma.mp3)', loop: true}),
+    narrator: {
+        eyes: createSound({ src: 'url(assets/narrator/eyes.m4a)' }),
+        final: createSound({ src: 'url(assets/narrator/final.mp3)' }),
+        forest: createSound({ src: 'url(assets/narrator/scene0.mp3)' }),
+        delta: createSound({ src: 'url(assets/narrator/scene1.mp3)' }),
+        theta: createSound({ src: 'url(assets/narrator/scene2.m4a)' }),
+        alpha: createSound({ src: 'url(assets/narrator/scene3.mp3)' }),
+        beta: createSound({ src: 'url(assets/narrator/scene4.mp3)' }),
+        gamma: createSound({ src: 'url(assets/narrator/scene5.mp3)' })
+    }
 }
 
 // Example for playing returned sound (must be called when ready to play sound): 

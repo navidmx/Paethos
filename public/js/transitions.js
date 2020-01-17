@@ -96,7 +96,7 @@ function transitionDelta() {
     setTimeout(() => {
         blackTransition();
         soundFadeOut(sound.forest);
-        soundFadeIn(sound.delta);
+        soundFadeIn(sound.delta, true);
         showHeading(text.delta.heading, text.delta.subheading, COLORS.delta);
     }, 5000);
     setTimeout(sceneDelta, 8000);
@@ -105,7 +105,7 @@ function transitionDelta() {
 function transitionTheta() {
     blackTransition();
     soundFadeOut(sound.delta);
-    soundFadeIn(sound.theta);
+    soundFadeIn(sound.theta, true);
     showHeading(text.theta.heading, text.theta.subheading, COLORS.theta);
     setTimeout(sceneTheta, 3000);
 }
@@ -113,7 +113,7 @@ function transitionTheta() {
 function transitionAlpha() {
     blackTransition();
     soundFadeOut(sound.theta);
-    soundFadeIn(sound.alpha);
+    soundFadeIn(sound.alpha, true);
     showHeading(text.alpha.heading, text.alpha.subheading, COLORS.alpha);
     setTimeout(toggleOceanVisibility, 2000);
     setTimeout(sceneAlpha, 3000);
@@ -122,7 +122,8 @@ function transitionAlpha() {
 function transitionBeta() {
     blackTransition();
     soundFadeOut(sound.alpha);
-    soundFadeIn(sound.beta);
+    playSound(sound.narrator.eyes);
+    soundFadeIn(sound.beta, true);
     showHeading(text.beta.heading, text.beta.subheading, COLORS.beta);
     setTimeout(toggleOceanVisibility, 2000);
     setTimeout(sceneBeta, 3000);
@@ -131,7 +132,7 @@ function transitionBeta() {
 function transitionGamma() {
     blackTransition();
     soundFadeOut(sound.beta);
-    soundFadeIn(sound.gamma);
+    soundFadeIn(sound.gamma, true);
     showHeading(text.gamma.heading, text.gamma.subheading, COLORS.gamma);
     setTimeout(sceneGamma, 3000);
 }

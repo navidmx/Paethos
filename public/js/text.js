@@ -25,7 +25,7 @@ let text = {
     theta: {
         heading: 'Scene II',
         subheading: 'Daydreaming',
-        title: 'THETA',
+        title: 'THETA WAVES',
         subtitle: 'Related to dreaming, these waves are present in creative tasks of all sorts.'
     },
     alpha: {

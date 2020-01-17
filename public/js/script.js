@@ -12,7 +12,7 @@ let animate = (scene, dur) => {
                     setSubtitle(text.calibrate.subtitle);
                 });
             }, 1000);
-            soundFadeIn(sound.forest);
+            soundFadeIn(sound.forest, true);
             setTitle(text.intro.title);
             setSubtitle(text.intro.subtitle);
             break;
