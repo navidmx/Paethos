@@ -47,9 +47,8 @@ const hexToRgb = hex => {
         : null;
 };
 
-const createButton = (id, action, color = '#960960') => {
-    $(`<a-entity id=${id} ui-button position="0 0.75 -0.8" color=${color}>`)
-        .appendTo("#env");
+const createButton = (id, action) => {
+    $(`<a-entity id=${id} ui-button position="0 0.75 -0.8">`).appendTo("#env");
     setTimeout(() => {
         let button = document.querySelector('#' + id);
         button.addEventListener('pressed', () => {
@@ -77,6 +76,7 @@ for (circle of circles) {
         'height': 1,
         'width': 1,
         'count': 0,
+        'margin': "0 0.2 0 0.2",
         'visible': false,
         'background-color': "#333333"
     })
@@ -268,10 +268,15 @@ function toggleOceanVisibility() {
 }
 
 function lowerDressing(duration){
+
     env.setAttribute('animation', {
+
         property: 'environmentDressing',
         to: "0 -5 0",
         duration: duration,
         easing: 'easeInQuad'
+
+
     });
+
 }

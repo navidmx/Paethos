@@ -1,22 +1,30 @@
-let blackout = document.querySelector("#blackout");
+let blackout = document.querySelector('#blackout');
 
 function fadeOutBlack(dur) {
     blackout.setAttribute('visible', true);
-    blackout.setAttribute('animation', {
-        property: 'material.opacity',
-        to: 1,
-        dur: dur,
-        easing: 'easeInQuad'
-    }, dur);
+    blackout.setAttribute(
+        'animation',
+        {
+            property: 'material.opacity',
+            to: 1,
+            dur: dur,
+            easing: 'easeInQuad'
+        },
+        dur
+    );
 }
 
 function fadeInBlack(dur) {
-    blackout.setAttribute('animation', {
-        property: 'material.opacity',
-        to: 0,
-        dur: dur,
-        easing: 'easeInQuad'
-    }, dur);
+    blackout.setAttribute(
+        'animation',
+        {
+            property: 'material.opacity',
+            to: 0,
+            dur: dur,
+            easing: 'easeInQuad'
+        },
+        dur
+    );
     setTimeout(() => {
         blackout.setAttribute('visible', false);
     }, dur);
@@ -124,4 +132,59 @@ function transitionGamma() {
     blackTransition();
     showHeading(text.gamma.heading, text.gamma.subheading, COLORS.gamma);
     setTimeout(sceneGamma, 3000);
+}
+
+function transitionReset() {
+    blackTransition();
+    setTimeout(() => {
+        sceneFinal();
+        placeRandomTrees(100, 50, 200, 0);
+        env.setAttribute('scale', '8 1 8');
+        document
+            .getElementsByClassName('environmentGround')[0]
+            .setAttribute('animation', {
+                property: 'position',
+                to: '0 -50 0',
+                dur: 0,
+                easing: 'easeOutQuad'
+            });
+    }, 3000);
+
+    setTimeout(() => {
+        let trees = document.getElementsByClassName('tree');
+        for (tree of trees) {
+            tree.setAttribute('animation', {
+                property: 'position',
+                to: { y: -50 },
+                dur: 0,
+                easing: 'easeOutQuad'
+            });
+        }
+    }, 4000);
+    setTimeout(() => {
+        let trees = document.getElementsByClassName('tree');
+        document
+            .getElementsByClassName('environmentGround')[0]
+            .setAttribute('animation__3', {
+                property: 'position',
+                to: '0 0 0',
+                dur: 5000,
+                easing: 'easeOutQuad'
+            });
+        env.setAttribute('animation__4', {
+            property: 'scale',
+            to: { x: 1, z: 1 },
+            dur: 5000,
+            easing: 'linear'
+        });
+
+        for (tree of trees) {
+            tree.setAttribute('animation', {
+                property: 'position',
+                to: { y: 0 },
+                dur: 5000,
+                easing: 'easeOutQuad'
+            });
+        }
+    }, 4200);
 }

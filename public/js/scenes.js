@@ -93,6 +93,19 @@ let sceneGamma = () => {
     }, 10000); // Match with Laura's audio
 };
 
+let sceneFinal = () => {
+    setEnvironment(scenes.final);
+    setTitleColor(COLORS.white);
+    setSubtitleColor(COLORS.white);
+    setTitle(text.gamma.title);
+    setSubtitle(text.gamma.subtitle);
+    enableGUI('gamma');
+    setTimeout(() => {
+        setSubtitle(text.lastButton);
+        createButton('resetButton', transitionReset);
+    }, 10000); // Match with Laura's audio
+};
+
 let scenes = {
     initial: {
         skyType: 'gradient',
@@ -270,5 +283,39 @@ let scenes = {
         dressing: 'cylinders',
         dressingAmount: 400,
         dressingColor: '#c28a77'
+    },
+    final: {
+        skyType: 'gradient',
+        skyColor: COLORS.skyblue,
+        horizonColor: COLORS.lightblue,
+        lighting: 'distant',
+        lightPosition: {
+            x: -1.2,
+            y: 0.88,
+            z: -0.55
+        },
+        seed: 4,
+        dressing: 'trees',
+        dressingColor: '#43752f',
+        fog: 0.0,
+        flatShading: false,
+        playArea: 1.3,
+        ground: 'hills',
+        groundYScale: 50,
+        groundColor: COLORS.lightgreen,
+        groundColor2: COLORS.darkgreen,
+        groundTexture: 'checkerboard',
+        dressingScale: 1,
+        dressingVariance: {
+            x: 20,
+            y: 30,
+            z: 20
+        },
+        dressingAmount: 0,
+        dressingUniformScale: true,
+        dressingOnPlayArea: 0,
+        grid: 'none',
+        gridColor: '#c5a543',
+        shadow: false
     }
 };
