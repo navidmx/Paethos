@@ -4,8 +4,8 @@ var dgram = require('dgram');
 const serverport = 3000;
 
 var ganglionHost = '127.0.0.1';
-var bandpowerPort = 6969;
-var focusPort = 9696;
+var bandpowerPort = 2131;
+var focusPort = 2132;
 
 var data = {
     alpha: 0,

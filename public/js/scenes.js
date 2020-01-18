@@ -10,6 +10,7 @@ let sceneForest = () => {
     setTitleColor(COLORS.white);
     setTitle(text.initial.title);
     setSubtitle(text.initial.subtitle);
+    getWaves();
     setTimeout(() => {
         setSubtitle(text.firstButton);
         createButton('deltaButton', transitionDelta);
@@ -274,7 +275,7 @@ let scenes = {
         lightPosition: '0.5 1 0',
         fog: 0.8,
         flatShading: true,
-        playArea: 3,
+        playArea: 7,
         ground: 'canyon',
         groundYScale: 9.76,
         groundColor: '#C66344',
