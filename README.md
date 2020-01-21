@@ -2,6 +2,9 @@
 
 A virtual reality experience that utilizes EEG sensors to turn brainwaves into an interactive and educational art piece. Submission for Carnegie Mellon's 11th Build18 Hack-a-thon.
 
+### Preview:
+![](preview.gif)
+
 ### Technology Used:
 - OpenBCI's Ganglion
   - Electrode data sent through Bluetooth to OpenBCI's GUI
