@@ -18,3 +18,6 @@ A virtual reality experience that utilizes EEG sensors to turn brainwaves into a
 - Scene III: Waking Up (Alpha Waves)
 - Scene IV: Active Mind (Beta Waves)
 - Scene V: Nirvana (Gamma Waves)
+
+### Soundtrack
+To listen to the soundtrack, visit: https://soundcloud.com/izofar/sets/paethos-original-soundtrack
