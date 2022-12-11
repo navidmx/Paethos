@@ -20,7 +20,7 @@
     "dependencies": {
         "@neurosity/pipes": "^3.2.3",
         "@openbci/utilities": "^1.0.0",
-        "express": "^4.17.1",
+        "express": "^4.17.3",
         "ganglion-ble": "^1.0.0"
     }
 }
